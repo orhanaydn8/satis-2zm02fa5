@@ -1,0 +1,204 @@
+<meta name="robots" content="noindex, nofollow">
+<title>Konsept Daire 360° · Concordia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Tam ekran panorama; künye sol üstte, mekân şeridi altta kat kat. Tek koyu dünya: evin antrasit doğraması, meşe vurgu (bilerek tek tema). */
+:root {
+  color-scheme: dark;
+  --antrasit: #24272a;
+  --antrasit-2: #31353a;
+  --greige: #d7cec0;
+  --balerin: #efe3da;
+  --mese: #c08a55;
+  --soluk: #a39b8f;
+  --font-baslik: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-metin: "Source Sans 3", "Segoe UI", -apple-system, system-ui, sans-serif;
+}
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--antrasit); color: var(--balerin); font-family: var(--font-metin); overflow: hidden; overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+#sahne { position: fixed; inset: 0; touch-action: none; cursor: grab; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#sahne:active { cursor: grabbing; }
+#sahne canvas { display: block; width: 100%; height: 100%; }
+#perde { position: fixed; inset: 0; background: var(--antrasit); opacity: 0; pointer-events: none; transition: opacity .28s ease; }
+#perde.acik { opacity: 1; }
+.ust { position: fixed; left: 0; right: 0; top: 0; z-index: 2; pointer-events: none;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(to bottom, rgba(20,22,24,.62), rgba(20,22,24,0)); text-shadow: 0 1px 12px rgba(0,0,0,.5); display: grid; gap: 4px; }
+.proje { font-family: var(--font-baslik); font-stretch: 75%; font-weight: 600; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--greige); }
+h1 { margin: 0; font-family: var(--font-baslik); font-stretch: 82%; font-weight: 700; font-size: clamp(1.5rem, 4vw, 2.3rem); line-height: 1.05; color: #fff; text-wrap: balance; }
+.ipucu { font-size: .9rem; color: var(--balerin); opacity: .9; max-width: 34rem; }
+.kat-etiket { font-variant-numeric: tabular-nums; color: var(--mese); font-weight: 600; }
+.alt { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(to top, rgba(20,22,24,.94) 60%, rgba(20,22,24,0)); display: grid; gap: 8px; }
+.alt-bas { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sekmeler { display: flex; gap: 6px; flex-wrap: wrap; }
+.sekme { font: 600 .78rem var(--font-baslik); font-stretch: 80%; letter-spacing: .1em; text-transform: uppercase; color: var(--soluk); background: none; border: 1px solid var(--antrasit-2); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.sekme[aria-pressed="true"] { color: var(--antrasit); background: var(--mese); border-color: var(--mese); }
+.sekme:focus-visible, .oda:focus-visible, .gizle:focus-visible { outline: 2px solid var(--mese); outline-offset: 2px; }
+.gizle { font: 600 .78rem var(--font-metin); color: var(--greige); background: none; border: 0; cursor: pointer; padding: 6px 4px; }
+.odalar { display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: thin; }
+.oda { flex: 0 0 auto; display: grid; gap: 5px; width: 148px; padding: 0; text-align: left; background: none; border: 0; color: var(--balerin); font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.oda img { width: 148px; height: 74px; object-fit: cover; border-radius: 3px; border: 2px solid transparent; opacity: .72; background: var(--antrasit-2); transition: opacity .2s, border-color .2s; }
+.oda span { font-size: .86rem; line-height: 1.2; }
+.oda:hover img { opacity: 1; }
+.oda[aria-current="true"] img { border-color: var(--mese); opacity: 1; }
+.oda[aria-current="true"] span { color: #fff; font-weight: 600; }
+.alt.kapali .odalar, .alt.kapali .sekmeler { display: none; }
+#yukleniyor { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; z-index: 1; font: 600 .78rem var(--font-baslik); font-stretch: 75%; letter-spacing: .14em; text-transform: uppercase; color: var(--greige); }
+@media (max-width: 420px) { .oda, .oda img { width: 118px; } .oda img { height: 59px; } }
+@media (prefers-reduced-motion: reduce) { #perde, .oda img { transition: none; } }
+</style>
+
+<div id="sahne" role="img" aria-label="360 derece panorama"></div>
+<div id="perde"></div>
+<div id="yukleniyor">Panorama yükleniyor</div>
+<header class="ust">
+  <div class="proje">Akçakoca Konut Projesi · Konsept daire “Vizon &amp; Ceviz” · 2+1, 108 m²</div>
+  <h1 id="odaAdi">Salon</h1>
+  <div class="ipucu"><span class="kat-etiket" id="katAdi">Daire</span> · Sürükleyerek bakın, yerdeki halkalara dokunarak yandaki mekâna yürüyün.</div>
+</header>
+<nav class="alt" id="alt" aria-label="Mekânlar">
+  <div class="alt-bas">
+    <div class="sekmeler" id="sekmeler"></div>
+    <div class="sekmeler"><button class="sekme" id="mGun" type="button" aria-pressed="true">Gündüz</button><button class="sekme" id="mGece" type="button" aria-pressed="false">Gece</button>
+    <button class="gizle" id="gizle" type="button" aria-expanded="true">Listeyi gizle</button></div>
+  </div>
+  <div class="odalar" id="odalar"></div>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+var D = [{"id": "01_salon", "ad": "Salon", "kat": "Daire", "x": -13.15, "y": -7.449999999999999, "z": 7.75, "yon": 160, "git": [1, 3, 7], "bak": 60}, {"id": "02_yemek", "ad": "Yemek alanı", "kat": "Daire", "x": -14.55, "y": -7.6499999999999995, "z": 7.75, "yon": 200, "git": [0, 7]}, {"id": "03_mutfak", "ad": "Mutfak", "kat": "Daire", "x": -13.15, "y": -2.6499999999999995, "z": 7.75, "yon": 135, "git": [3]}, {"id": "04_hol", "ad": "Hol", "kat": "Daire", "x": -10.45, "y": -3.3499999999999996, "z": 7.75, "yon": 200, "git": [0, 2, 4, 5, 6]}, {"id": "05_ebeveyn", "ad": "Ebeveyn yatak odası", "kat": "Daire", "x": -7.35, "y": -8.549999999999999, "z": 7.75, "yon": 70, "git": [3]}, {"id": "06_yatak2", "ad": "Yatak odası", "kat": "Daire", "x": -9.65, "y": -5.25, "z": 7.75, "yon": 290, "git": [3]}, {"id": "07_banyo", "ad": "Banyo", "kat": "Daire", "x": -9.35, "y": -1.4499999999999993, "z": 7.75, "yon": 0, "git": [3]}, {"id": "08_balkon", "ad": "Balkon", "kat": "Daire", "x": -15.95, "y": -5.449999999999999, "z": 7.75, "yon": 180, "git": [0, 1]}]; var GECE_VAR = false; var mod = "gunduz";
+var kutu = document.getElementById("sahne");
+var renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+kutu.appendChild(renderer.domElement);
+var hedefGen = Math.min(4096, renderer.capabilities.maxTextureSize || 4096);
+
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(75, 1, 0.1, 100);
+var geo = new THREE.SphereGeometry(50, 64, 40); geo.scale(-1, 1, 1);
+var mat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+scene.add(new THREE.Mesh(geo, mat));
+var isaretler = new THREE.Group(); scene.add(isaretler);
+
+var lon = 180, lat = 0, fov = 75;
+function boyut() { var w = kutu.clientWidth || innerWidth, h = kutu.clientHeight || innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+function yon(lo, la, r) { var p = la * Math.PI / 180, t = lo * Math.PI / 180; return new THREE.Vector3(r * Math.cos(p) * Math.cos(t), r * Math.sin(p), r * Math.cos(p) * Math.sin(t)); }
+function ciz() { lat = Math.max(-85, Math.min(85, lat)); camera.lookAt(yon(lon, lat, 1)); camera.fov = fov; camera.updateProjectionMatrix(); renderer.render(scene, camera); }
+/* dünya yönü (derece, 0 = doğu) → panoramadaki boylam: görüntü ortası çekim yönüdür, sağa gidildikçe yön azalır */
+function boylam(n, h) { return ((0.5 + (n.yon - h) / 360) * 360 % 360 + 360) % 360; }
+
+var MESE = "#c08a55";
+function halkaDoku() {
+  var c = document.createElement("canvas"); c.width = c.height = 256; var g = c.getContext("2d");
+  g.fillStyle = "rgba(20,22,24,.55)"; g.beginPath(); g.arc(128, 128, 110, 0, 7); g.fill();
+  g.lineWidth = 12; g.strokeStyle = MESE; g.beginPath(); g.arc(128, 128, 104, 0, 7); g.stroke();
+  g.lineWidth = 16; g.lineCap = "round"; g.lineJoin = "round"; g.strokeStyle = "#fff";
+  g.beginPath(); g.moveTo(80, 150); g.lineTo(128, 100); g.lineTo(176, 150); g.stroke();
+  var t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; return t;
+}
+var HALKA = halkaDoku();
+function yaziDoku(s) {
+  var c = document.createElement("canvas"), g = c.getContext("2d"), f = "600 40px 'Source Sans 3', 'Segoe UI', sans-serif";
+  g.font = f; var w = Math.ceil(g.measureText(s).width) + 48; c.width = w; c.height = 64; g.font = f;
+  g.fillStyle = "rgba(20,22,24,.72)"; var r = 32; g.beginPath(); g.moveTo(r, 0); g.arcTo(w, 0, w, 64, r); g.arcTo(w, 64, 0, 64, r); g.arcTo(0, 64, 0, 0, r); g.arcTo(0, 0, w, 0, r); g.fill();
+  g.fillStyle = "#efe3da"; g.textBaseline = "middle"; g.fillText(s, 24, 34);
+  var t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; return { t: t, oran: w / 64 };
+}
+
+var simdi = -1, aktifDoku = null, istek = 0;
+function isaretKur(i) {
+  while (isaretler.children.length) { var o = isaretler.children.pop(); if (o.userData.yazi) o.material.map.dispose(); o.material.dispose(); }
+  var n = D[i];
+  n.git.forEach(function (j) {
+    var m = D[j], dx = m.x - n.x, dy = m.y - n.y, mesafe = Math.hypot(dx, dy), h = Math.atan2(dy, dx) * 180 / Math.PI;
+    var lo = boylam(n, h), la = Math.max(-42, Math.min(38, Math.atan2(m.z - n.z, mesafe) * 180 / Math.PI - 16));
+    var s = new THREE.Sprite(new THREE.SpriteMaterial({ map: HALKA, depthTest: false, transparent: true }));
+    s.position.copy(yon(lo, la, 30)); s.scale.set(3.4, 3.4, 1); s.renderOrder = 2; s.userData = { hedef: j, h: h };
+    var y = yaziDoku(m.ad), e = new THREE.Sprite(new THREE.SpriteMaterial({ map: y.t, depthTest: false, transparent: true }));
+    e.position.copy(yon(lo, la - 5.2, 30)); e.scale.set(1.25 * y.oran, 1.25, 1); e.renderOrder = 2; e.userData = { hedef: j, h: h, yazi: true };
+    isaretler.add(s); isaretler.add(e);
+  });
+}
+function ac(i, varisYonu, koru) {
+  var n = D[i], benim = ++istek; simdi = i;
+  document.getElementById("odaAdi").textContent = n.ad; document.getElementById("katAdi").textContent = n.kat;
+  document.querySelectorAll(".oda").forEach(function (b) { b.setAttribute("aria-current", +b.dataset.i === i ? "true" : "false"); });
+  sekmeSec(n.kat, false);
+  var perde = document.getElementById("perde"); perde.classList.add("acik");
+  document.getElementById("yukleniyor").hidden = false;
+  var r = new Image();
+  r.onload = function () {
+    if (benim !== istek) return;
+    var g = r; if (r.width > hedefGen) { var c = document.createElement("canvas"); c.width = hedefGen; c.height = hedefGen / 2; c.getContext("2d").drawImage(r, 0, 0, c.width, c.height); g = c; }
+    var t = new THREE.Texture(g); t.encoding = THREE.sRGBEncoding; t.minFilter = THREE.LinearFilter; t.generateMipmaps = false; t.needsUpdate = true;
+    if (aktifDoku) aktifDoku.dispose(); aktifDoku = t; mat.map = t; mat.needsUpdate = true;
+    isaretKur(i);
+    if (!koru) { lon = varisYonu == null ? (n.bak != null ? boylam(n, n.bak) : 180) : boylam(n, varisYonu); lat = 0; } ciz();
+    document.getElementById("yukleniyor").hidden = true; perde.classList.remove("acik");
+    n.git.forEach(function (j) { var p = new Image(); p.src = "pano/" + mod + "/" + D[j].id + ".jpg"; });   /* komşuları önceden indir */
+  };
+  r.src = "pano/" + mod + "/" + n.id + ".jpg";
+}
+
+/* mekân şeridi: kat sekmeleri */
+var katlar = []; D.forEach(function (n) { if (n && katlar.indexOf(n.kat) < 0) katlar.push(n.kat); });
+var sek = document.getElementById("sekmeler"), odalar = document.getElementById("odalar");
+katlar.forEach(function (k) { var b = document.createElement("button"); b.type = "button"; b.className = "sekme"; b.textContent = k; b.dataset.kat = k; b.onclick = function () { sekmeSec(k, true); }; sek.appendChild(b); });
+D.forEach(function (n, i) {
+  if (!n) return; var b = document.createElement("button"); b.type = "button"; b.className = "oda"; b.dataset.i = i; b.dataset.kat = n.kat;
+  b.innerHTML = '<img alt="" src="pano/k/' + n.id + '.jpg"><span></span>'; b.querySelector("span").textContent = n.ad;
+  b.onclick = function () { ac(i, null); }; odalar.appendChild(b);
+});
+function sekmeSec(k, kaydir) {
+  document.querySelectorAll(".sekme").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.kat === k ? "true" : "false"); });
+  document.querySelectorAll(".oda").forEach(function (b) { b.hidden = b.dataset.kat !== k; });
+  if (kaydir) odalar.scrollLeft = 0;
+}
+function modSec(m) { if (mod === m) return; mod = m; document.getElementById("mGun").setAttribute("aria-pressed", String(m === "gunduz")); document.getElementById("mGece").setAttribute("aria-pressed", String(m === "gece")); ac(simdi, null, true); }
+document.getElementById("mGun").onclick = function () { modSec("gunduz"); }; document.getElementById("mGece").onclick = function () { modSec("gece"); };
+if (!GECE_VAR) document.getElementById("mGece").hidden = true;
+var gz = document.getElementById("gizle");
+gz.onclick = function () { var alt = document.getElementById("alt"), k = alt.classList.toggle("kapali"); gz.textContent = k ? "Mekânları göster" : "Listeyi gizle"; gz.setAttribute("aria-expanded", k ? "false" : "true"); };
+
+/* dokunma + fare: sürükle bak, iki parmak yakınlaş, kısa dokunuşla halkaya yürü */
+var ray = new THREE.Raycaster(), surukle = null, tutam = null, bas = null;
+function dokun(x, y) {
+  var rc = kutu.getBoundingClientRect(); ray.setFromCamera(new THREE.Vector2((x - rc.left) / rc.width * 2 - 1, -(y - rc.top) / rc.height * 2 + 1), camera);
+  var v = ray.intersectObjects(isaretler.children); if (v.length) ac(v[0].object.userData.hedef, v[0].object.userData.h);
+}
+function mesafe(t) { return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY); }
+kutu.addEventListener("touchstart", function (e) {
+  if (e.touches.length === 1) { surukle = { x: e.touches[0].clientX, y: e.touches[0].clientY, lon: lon, lat: lat }; bas = { x: surukle.x, y: surukle.y, t: Date.now() }; tutam = null; }
+  else if (e.touches.length === 2) { surukle = null; bas = null; tutam = { d: mesafe(e.touches), fov: fov }; }
+}, { passive: true });
+kutu.addEventListener("touchmove", function (e) {
+  e.preventDefault();
+  if (tutam && e.touches.length === 2) { fov = Math.max(35, Math.min(95, tutam.fov * tutam.d / mesafe(e.touches))); ciz(); }
+  else if (surukle && e.touches.length === 1) { var k = fov / kutu.clientHeight; lon = surukle.lon - (e.touches[0].clientX - surukle.x) * k; lat = surukle.lat + (e.touches[0].clientY - surukle.y) * k; ciz(); }
+}, { passive: false });
+kutu.addEventListener("touchend", function (e) {
+  var t = e.changedTouches[0];
+  if (bas && t && Math.hypot(t.clientX - bas.x, t.clientY - bas.y) < 10 && Date.now() - bas.t < 450) dokun(t.clientX, t.clientY);
+  if (e.touches.length === 0) { surukle = null; tutam = null; bas = null; }
+});
+document.addEventListener("gesturestart", function (e) { e.preventDefault(); });
+var fare = null;
+kutu.addEventListener("mousedown", function (e) { fare = { x: e.clientX, y: e.clientY, lon: lon, lat: lat }; });
+addEventListener("mousemove", function (e) { if (!fare) return; var k = fov / kutu.clientHeight; lon = fare.lon - (e.clientX - fare.x) * k; lat = fare.lat + (e.clientY - fare.y) * k; ciz(); });
+addEventListener("mouseup", function (e) { if (fare && Math.hypot(e.clientX - fare.x, e.clientY - fare.y) < 5) dokun(e.clientX, e.clientY); fare = null; });
+kutu.addEventListener("wheel", function (e) { e.preventDefault(); fov = Math.max(35, Math.min(95, fov + e.deltaY * 0.04)); ciz(); }, { passive: false });
+addEventListener("keydown", function (e) {
+  if (e.key === "ArrowLeft") lon -= 5; else if (e.key === "ArrowRight") lon += 5; else if (e.key === "ArrowUp") lat += 5; else if (e.key === "ArrowDown") lat -= 5; else return; ciz();
+});
+addEventListener("resize", function () { boyut(); ciz(); });
+boyut();
+var ilk = D.findIndex(function (n) { return n; }); if (ilk >= 0) ac(ilk, null);
+})();
+</script>

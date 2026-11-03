@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satılık Daireler | Concordia İnşaat ve Mühendislik</title>
+<meta name="description" content="Akçakoca'da 24 adet 2+1 daire: binayı döndürün, katı seçin, dairenin planını, alanını, fiyatını ve satış durumunu görün.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f7f4ee;--paper:#fbf9f5;--ink:#1a1814;--gr:#6a655c;--line:#e3ddd0;--nm:#e8e4dc;--gold:#8a6f47;--gl:#a88a5e;--gd:#5f4a2e;--dk:#1a1f28;--wa:#25d366;
+--sat:#8a6f47;--rez:#c98a2b;--sold:#9a958c}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+.ct{max-width:1320px;margin:0 auto;padding:0 24px}
+/* üst menü — ana sitedeki nav ile aynı dil */
+.nav{position:sticky;top:0;z-index:50;background:rgba(247,244,238,.95);backdrop-filter:blur(16px);border-bottom:1px solid #e8e2d2}
+.nav-i{display:flex;justify-content:space-between;align-items:center;height:68px}
+.nav-logo img{height:46px;display:block}
+.nav-l{display:flex;gap:6px;align-items:center}
+.nav-l a{font-size:13px;font-weight:500;padding:8px 12px;border-radius:6px;text-decoration:none;transition:.25s}
+.nav-l a:hover{color:var(--gold);background:rgba(138,111,71,.08)}
+.nav-l a.cta{border:1px solid var(--gold);color:var(--gd)}
+/* örnek veri şeridi */
+.ornek{background:#f1e6cf;color:var(--gd);font-size:12.5px;text-align:center;padding:7px 16px;border-bottom:1px solid #e6d6b4}
+/* ana sahne */
+.sahne{display:grid;grid-template-columns:330px minmax(0,1fr) 260px;gap:0;min-height:calc(100vh - 102px);position:relative}
+.sol{padding:44px 28px 28px 24px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+.eyebrow{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.sol h1{font-size:42px;line-height:1.08;font-weight:700;letter-spacing:-.02em;margin:14px 0 16px}
+.sol p.lead{color:var(--gr);font-size:14.5px;line-height:1.65}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;border-top:1px solid var(--line);padding-top:20px;margin-top:28px}
+.stat small{display:block;font-size:11.5px;color:var(--gr);margin-bottom:4px}
+.stat b{font-size:24px;font-weight:600;letter-spacing:-.01em}
+.orta{position:relative;min-height:560px;overflow:hidden;min-width:0;background:#e4e6e6}
+#gl{position:absolute;inset:0;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+#gl.surukle{cursor:grabbing}
+#gl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+#gl svg{position:absolute;inset:0;width:100%;height:100%}
+#gl .kp{fill:rgba(61,70,184,0);stroke:none;cursor:pointer;transition:fill .18s}
+#gl .kp.on{fill:rgba(61,70,184,.30);stroke:rgba(61,70,184,.85);stroke-width:2;vector-effect:non-scaling-stroke}
+.don{position:absolute;bottom:52px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.don button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(251,249,245,.92);font-size:16px}
+.don button:hover{border-color:var(--gold);color:var(--gold)}
+.yuk{position:absolute;left:0;bottom:0;height:2px;background:var(--gold);transition:width .3s;width:0}
+.ipucu{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:12px;color:var(--gr);background:rgba(251,249,245,.85);padding:6px 12px;border-radius:20px;pointer-events:none;white-space:nowrap}
+.etiket{position:absolute;left:20px;top:20px;pointer-events:none;background:rgba(251,249,245,.94);border-left:3px solid #3d46b8;padding:10px 16px;opacity:0;transition:opacity .2s;box-shadow:0 2px 14px rgba(0,0,0,.08)}
+.etiket.on{opacity:1}
+.etiket b{display:block;color:var(--gd);font-size:14px;font-weight:600}
+.etiket span{font-size:12px;color:var(--gr)}
+
+.gl-hata{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:30px;color:var(--gr);font-size:14px}
+.sag{padding:44px 24px 28px 8px;z-index:2}
+.sag h3{font-size:12px;font-weight:500;color:var(--gr);margin-bottom:10px}
+.kat-l{list-style:none;border-top:1px solid var(--line)}
+.kat-l li{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:8px;padding:11px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:4px;transition:background .2s}
+.kat-l li:hover,.kat-l li.on{background:rgba(138,111,71,.08)}
+.kat-l li.pasif{cursor:default;opacity:.6}
+.kat-l li.pasif:hover{background:none}
+.kat-l .kn{font-weight:600;font-size:14px}
+.kat-l li.on .kn,.kat-l li.on .ks{color:var(--gold)}
+.kat-l .kare{display:flex;gap:3px}
+.kare i{width:11px;height:11px;border:1px solid #8f897d;display:block}
+.kare i.rez{background:repeating-linear-gradient(45deg,#8f897d 0 1.5px,transparent 1.5px 4px)}
+.kare i.sold{background:#4a463f;border-color:#4a463f}
+.kat-l .ks{font-size:11.5px;color:var(--gr);white-space:nowrap}
+.lejant{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--gr)}
+.lejant span{display:flex;align-items:center;gap:6px}
+/* plan görünümü */
+.plan-v{display:none;grid-template-columns:minmax(0,1fr) 400px;min-height:calc(100vh - 68px)}
+.plan-v.on{display:grid}
+.plan-sol{padding:22px 24px 24px;display:flex;flex-direction:column;min-width:0}
+.panel,.sol,.sag{min-width:0}
+.plan-ust{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.geri{background:none;border:none;font-size:13px;color:var(--ink);display:flex;align-items:center;gap:6px;padding:6px 0}
+.geri:hover{color:var(--gold)}
+.plan-ust .ayr{width:1px;height:26px;background:var(--line)}
+.plan-ust h2{font-size:24px;font-weight:600;letter-spacing:-.01em}
+.plan-ust .alt{font-size:13px;color:var(--gr)}
+.ok{display:flex;gap:6px;margin-left:auto}
+.ok button{width:36px;height:36px;border:1px solid var(--line);background:var(--paper);border-radius:4px;font-size:15px}
+.ok button:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.ok button:disabled{opacity:.35;cursor:default}
+.plan-kutu{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 0 0;min-height:340px}
+#plan{width:100%;height:auto;max-height:calc(100vh - 190px);background:#f3f0e9;border-radius:4px}
+#plan .f{stroke:#c9c3b6;stroke-width:1.6;fill:none}
+#plan .o{stroke:#8f897d;stroke-width:2;fill:none}
+#plan .r{stroke:#8f897d;stroke-width:2;fill:none}
+#plan .w{stroke:#2b2822;stroke-width:4.5;fill:none;stroke-linecap:square}
+#plan .c{stroke:#1a1814;stroke-width:4;fill:none}
+#plan .oda{font-size:30px;fill:#7b7569;text-anchor:start;pointer-events:none}
+#plan .oda tspan.a{font-size:22px;fill:#a39d90}
+#plan .u{fill:rgba(138,111,71,0);stroke:none;cursor:pointer;transition:fill .2s}
+#plan .u:hover{fill:rgba(138,111,71,.13)}
+#plan .u.rez{fill:rgba(201,138,43,.10)}
+#plan .u.sold{fill:rgba(60,56,50,.16)}
+#plan .u.sec{fill:rgba(64,72,190,.10);stroke:#3d46b8;stroke-width:10;stroke-linejoin:round}
+#plan .rozet rect{fill:rgba(255,255,255,.95);stroke:#3d7a3f;stroke-width:5}
+#plan .rozet text{font:600 44px Inter,sans-serif;fill:#2c2a26;text-anchor:middle;pointer-events:none}
+#plan .rozet{pointer-events:none}
+#plan .rozet.rez rect{stroke:#c98a2b}#plan .rozet.sold rect{stroke:#8f897d}
+#plan .u{stroke:rgba(61,70,184,0);stroke-width:8}
+#plan .u:hover{fill:rgba(61,70,184,.10);stroke:rgba(61,70,184,.55)}
+#plan .dno{font-size:62px;font-weight:700;fill:#4a463f;text-anchor:middle;pointer-events:none;opacity:.55}
+#plan .ddu{font-size:26px;fill:#6a655c;text-anchor:middle;pointer-events:none;opacity:.8}
+.yon{position:absolute}
+.panel{border-left:1px solid var(--line);background:var(--paper);padding:26px 30px;overflow:auto}
+.panel .bos{color:var(--gr);font-size:14px;line-height:1.7;margin-top:30px}
+.panel .ust{font-size:12px;color:var(--gr)}
+.panel h3{font-size:28px;font-weight:600;letter-spacing:-.015em;margin:6px 0 2px}
+.panel .tip{color:var(--gr);font-size:14px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.fiyat{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
+.fiyat b{font-size:32px;font-weight:600;letter-spacing:-.02em}
+.fiyat b.cizik{text-decoration:line-through;color:#8f897d}
+.fiyat b.yok{font-size:17px;font-weight:500;color:var(--gd)}
+.durum{font-size:12.5px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.durum:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.durum.sat{color:#3d7a3f}.durum.rez{color:var(--rez)}.durum.sold{color:#6a655c}
+.ozet{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.ozet div{padding:16px 0}
+.ozet small{display:block;font-size:12px;color:var(--gr);margin-bottom:5px}
+.ozet b{font-size:22px;font-weight:500}
+.odalar{list-style:none;padding:10px 0;border-bottom:1px solid var(--line)}
+.odalar li{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0}
+.odalar li span{color:var(--gr)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;font-size:14.5px;font-weight:600;text-decoration:none;border-radius:2px;margin-top:14px;border:1px solid transparent}
+.btn.ana{background:var(--dk);color:#fff}
+.btn.ana:hover{background:#2c3442}
+.btn.wa{background:var(--wa);color:#fff}
+.btn.ik{background:transparent;border-color:#cfc8b9;color:var(--ink)}
+.btn.ik:hover{border-color:var(--gold)}
+.dip{font-size:11.5px;color:#8f897d;margin-top:18px;line-height:1.6}
+/* tüm daireler tablosu (JS olmadan da çalışır) */
+.liste{padding:70px 0 80px;border-top:1px solid var(--line);background:var(--paper)}
+.liste h2{font-size:30px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.liste p{color:var(--gr);font-size:14px;margin-bottom:26px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+th{text-align:left;font-size:12px;font-weight:500;color:var(--gr);padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:12px;border-bottom:1px solid var(--line)}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:rgba(138,111,71,.06)}
+td.r{text-align:right}
+footer{background:var(--dk);color:#cfc9bd;font-size:13px;padding:34px 0}
+footer .ct{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:#fff;text-decoration:none}
+@media(max-width:1100px){.sahne{grid-template-columns:minmax(0,1fr) 240px}.sol{grid-column:1/-1;padding-bottom:0}.sol .stat{grid-template-columns:repeat(4,1fr)}.orta{min-height:60vh}}
+@media(max-width:860px){
+ .nav-l a:not(.cta){display:none}
+ .sahne{grid-template-columns:minmax(0,1fr);min-height:0}
+ .sol{padding:28px 16px 0}.sol h1{font-size:32px}.sol .stat{grid-template-columns:1fr 1fr}
+ .orta{min-height:62vh}
+ .sag{padding:8px 16px 28px}
+ .plan-v.on{grid-template-columns:minmax(0,1fr)}
+ .plan-sol{padding:16px}
+ .panel{border-left:none;border-top:1px solid var(--line);padding:22px 16px}
+ .ok{margin-left:0}
+ .ct{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="ct nav-i">
+  <a href="#" class="nav-logo" aria-label="Concordia ana sayfa"><img src="data:image/png;base64,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" alt="Concordia İnşaat ve Mühendislik"></a>
+  <div class="nav-l">
+    
+    <a href="#tum-daireler">Tüm daireler</a>
+    <a href="https://wa.me/905461947014" target="_blank" rel="noopener">İletişim</a>
+    <a class="cta" id="navWa" href="https://wa.me/905461947014" target="_blank" rel="noopener">Bilgi al</a>
+  </div>
+</div></nav>
+<div class="ornek" id="ornekSerit">Fiyatlar ve satış durumları <b>örnek veridir</b>. Alanlar ve planlar mimari ön projeden (16.04.2026) alınmıştır.</div>
+
+<!-- 1) BİNA GÖRÜNÜMÜ -->
+<main id="binaV" class="sahne">
+  <div class="sol">
+    <div>
+      <div class="eyebrow" id="pYer">Akçakoca · Düzce</div>
+      <h1 id="pAd">Akçakoca Konut Projesi</h1>
+      <p class="lead" id="pAcik">Otopark üzerine dört kat, toplam yirmi dört daire. Bahçe katındaki güney daireler özel bahçeli; en üst kattaki üç daire çatı katı ve terasıyla dubleks. Binayı çevirin, bir kat seçin.</p>
+    </div>
+    <div class="stat">
+      <div><small>Kat</small><b id="sKat">4 + çatı</b></div>
+      <div><small>Daire</small><b id="sDaire">24</b></div>
+      <div><small>Satışta</small><b id="sSat">–</b></div>
+      <div><small>Alan</small><b id="sAlan">86–151 m²</b></div>
+    </div>
+  </div>
+  <div class="orta">
+    <div id="gl" role="img" aria-label="Binanın görüntüsü. Sürükleyerek çevirin; kat seçmek için sağdaki listeyi de kullanabilirsiniz.">
+      <img id="glImg" src="satilik/d00.jpg" alt="Bina görünümü" draggable="false"><svg id="glSvg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"></svg><div class="yuk" id="yuk"></div></div>
+    <div class="don"><button id="sola" aria-label="Sola çevir">‹</button><button id="saga" aria-label="Sağa çevir">›</button></div>
+    <div class="etiket" id="etiket"><b></b><span></span></div>
+    <div class="ipucu" id="ipucu">Çevirmek için sürükleyin · kat planı için bir kata tıklayın</div>
+  </div>
+  <aside class="sag">
+    <h3>Katlar</h3>
+    <ul class="kat-l" id="katListe"></ul>
+    <div class="lejant">
+      <span><span class="kare"><i></i></span>Satışta</span>
+      <span><span class="kare"><i class="rez"></i></span>Opsiyonlu</span>
+      <span><span class="kare"><i class="sold"></i></span>Satıldı</span>
+    </div>
+  </aside>
+</main>
+
+<!-- 2) KAT PLANI GÖRÜNÜMÜ -->
+<section id="planV" class="plan-v" aria-live="polite">
+  <div class="plan-sol">
+    <div class="plan-ust">
+      <button class="geri" id="geri">← Binaya dön</button>
+      <span class="ayr"></span>
+      <h2 id="planBaslik">1. Kat</h2>
+      <span class="alt" id="planAlt"></span>
+      <div class="ok"><button id="katAsagi" aria-label="Alt kat">↓</button><button id="katYukari" aria-label="Üst kat">↑</button></div>
+    </div>
+    <div class="plan-kutu"><svg id="plan" role="img" aria-label="Kat planı"></svg></div>
+  </div>
+  <aside class="panel" id="panel"></aside>
+</section>
+
+<!-- 3) TÜM DAİRELER (JS olmasa da görünür) -->
+<section class="liste" id="tum-daireler"><div class="ct">
+  <h2>Tüm daireler</h2>
+  <p>Bir satıra tıklayarak dairenin planını açabilirsiniz.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Daire</th><th>Kat</th><th>Tip</th><th>Konum</th><th class="r">Brüt alan</th><th class="r">Fiyat</th><th>Durum</th></tr></thead>
+    <tbody id="tablo"><tr data-ki="0" data-kod="KB"><td><b>Daire 1</b></td><td>Bahçe katı</td><td>2+1</td><td>Yol tarafı, köşe daire</td><td class="r">105 m²</td><td class="r">3.930.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="0" data-kod="KO"><td><b>Daire 2</b></td><td>Bahçe katı</td><td>2+1</td><td>Ara daire, açık mutfaklı</td><td class="r">86 m²</td><td class="r">3.100.000 ₺</td><td>Satıldı</td></tr>
+<tr data-ki="0" data-kod="KD"><td><b>Daire 3</b></td><td>Bahçe katı</td><td>2+1</td><td>Arka (komşu) tarafı, köşe</td><td class="r">105 m²</td><td class="r">3.930.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="0" data-kod="GD"><td><b>Daire 4</b></td><td>Bahçe katı</td><td>2+1 bahçe katı</td><td>Arka (komşu) tarafı, köşe · 99 m² özel bahçe</td><td class="r">106 m²</td><td class="r">3.970.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="0" data-kod="GO"><td><b>Daire 5</b></td><td>Bahçe katı</td><td>2+1 bahçe katı</td><td>Ara daire · 54 m² özel bahçe</td><td class="r">87 m²</td><td class="r">3.130.000 ₺</td><td>Opsiyonlu</td></tr>
+<tr data-ki="0" data-kod="GB"><td><b>Daire 6</b></td><td>Bahçe katı</td><td>2+1 bahçe katı</td><td>Yol tarafı, köşe · 85 m² özel bahçe</td><td class="r">108 m²</td><td class="r">4.040.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="1" data-kod="KB"><td><b>Daire 7</b></td><td>1. Kat</td><td>2+1</td><td>Yol tarafı, köşe daire</td><td class="r">105 m²</td><td class="r">4.010.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="1" data-kod="KO"><td><b>Daire 8</b></td><td>1. Kat</td><td>2+1</td><td>Ara daire, açık mutfaklı</td><td class="r">86 m²</td><td class="r">3.160.000 ₺</td><td>Satıldı</td></tr>
+<tr data-ki="1" data-kod="KD"><td><b>Daire 9</b></td><td>1. Kat</td><td>2+1</td><td>Arka (komşu) tarafı, köşe</td><td class="r">105 m²</td><td class="r">4.010.000 ₺</td><td>Satıldı</td></tr>
+<tr data-ki="1" data-kod="GD"><td><b>Daire 10</b></td><td>1. Kat</td><td>2+1</td><td>Arka (komşu) tarafı, köşe</td><td class="r">106 m²</td><td class="r">4.050.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="1" data-kod="GO"><td><b>Daire 11</b></td><td>1. Kat</td><td>2+1</td><td>Ara daire, açık mutfaklı</td><td class="r">87 m²</td><td class="r">3.190.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="1" data-kod="GB"><td><b>Daire 12</b></td><td>1. Kat</td><td>2+1</td><td>Yol tarafı, köşe daire</td><td class="r">108 m²</td><td class="r">4.120.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="2" data-kod="KB"><td><b>Daire 13</b></td><td>2. Kat</td><td>2+1</td><td>Yol tarafı, köşe daire</td><td class="r">105 m²</td><td class="r">4.090.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="2" data-kod="KO"><td><b>Daire 14</b></td><td>2. Kat</td><td>2+1</td><td>Ara daire, açık mutfaklı</td><td class="r">86 m²</td><td class="r">3.220.000 ₺</td><td>Opsiyonlu</td></tr>
+<tr data-ki="2" data-kod="KD"><td><b>Daire 15</b></td><td>2. Kat</td><td>2+1</td><td>Arka (komşu) tarafı, köşe</td><td class="r">105 m²</td><td class="r">4.090.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="2" data-kod="GD"><td><b>Daire 16</b></td><td>2. Kat</td><td>2+1</td><td>Arka (komşu) tarafı, köşe</td><td class="r">106 m²</td><td class="r">4.130.000 ₺</td><td>Satıldı</td></tr>
+<tr data-ki="2" data-kod="GO"><td><b>Daire 17</b></td><td>2. Kat</td><td>2+1</td><td>Ara daire, açık mutfaklı</td><td class="r">87 m²</td><td class="r">3.260.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="2" data-kod="GB"><td><b>Daire 18</b></td><td>2. Kat</td><td>2+1</td><td>Yol tarafı, köşe daire</td><td class="r">108 m²</td><td class="r">4.210.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="3" data-kod="KB"><td><b>Daire 19</b></td><td>3. Kat</td><td>3+1 dubleks</td><td>Yol tarafı, köşe · çatı katı + 27,50 m² teras</td><td class="r">151 m²</td><td class="r">5.990.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="3" data-kod="KO"><td><b>Daire 20</b></td><td>3. Kat</td><td>3+1 dubleks</td><td>Ara daire · çatı katı + 25,65 m² teras</td><td class="r">131 m²</td><td class="r">5.000.000 ₺</td><td>Opsiyonlu</td></tr>
+<tr data-ki="3" data-kod="KD"><td><b>Daire 21</b></td><td>3. Kat</td><td>3+1 dubleks</td><td>Arka (komşu) tarafı, köşe · çatı katı + 27,50 m² teras</td><td class="r">149 m²</td><td class="r">5.910.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="3" data-kod="GD"><td><b>Daire 22</b></td><td>3. Kat</td><td>2+1</td><td>Arka (komşu) tarafı, köşe</td><td class="r">106 m²</td><td class="r">4.210.000 ₺</td><td>Satışta</td></tr>
+<tr data-ki="3" data-kod="GO"><td><b>Daire 23</b></td><td>3. Kat</td><td>2+1</td><td>Ara daire, açık mutfaklı</td><td class="r">87 m²</td><td class="r">3.320.000 ₺</td><td>Satıldı</td></tr>
+<tr data-ki="3" data-kod="GB"><td><b>Daire 24</b></td><td>3. Kat</td><td>2+1</td><td>Yol tarafı, köşe daire</td><td class="r">108 m²</td><td class="r">4.290.000 ₺</td><td>Satışta</td></tr></tbody>
+  </table></div>
+</div></section>
+
+<footer><div class="ct">
+  <span>© Concordia İnşaat ve Mühendislik · Akçakoca / Düzce</span>
+  <span>Görseller temsilidir; alanlar mimari ön projeye göredir, uygulama projesinde değişebilir.</span>
+  <a href="https://wa.me/905461947014" target="_blank" rel="noopener">WhatsApp: 0546 194 70 14</a>
+</div></footer>
+
+<!-- ============ DÜZENLENECEK VERİ ============
+  Fiyat ve satış durumunu buradan değiştirin:
+  durum: "satista" | "opsiyon" | "satildi"     fiyat: sayı (TL) ya da null (= "Fiyat için iletişime geçin")
+  "ornekVeri": true iken sayfanın üstünde "örnek veri" şeridi görünür; gerçek fiyatlar girilince false yapın. -->
+<script id="veri" type="application/json">
+{
+ "proje": {
+  "ad": "Akçakoca Konut Projesi",
+  "yer": "Akçakoca · Düzce",
+  "dosyaAdi": "akcakoca-konut"
+ },
+ "ornekVeri": true,
+ "whatsapp": "905461947014",
+ "katlar": [
+  {
+   "ad": "Bahçe katı",
+   "kisa": "B",
+   "plan": "bahce"
+  },
+  {
+   "ad": "1. Kat",
+   "kisa": "1",
+   "plan": "normal"
+  },
+  {
+   "ad": "2. Kat",
+   "kisa": "2",
+   "plan": "normal"
+  },
+  {
+   "ad": "3. Kat",
+   "kisa": "3",
+   "plan": "ucuncu"
+  },
+  {
+   "ad": "Çatı katı",
+   "kisa": "Ç",
+   "plan": "cati",
+   "sira": [
+    "KB",
+    "KO",
+    "KD"
+   ],
+   "noKat": 3
+  }
+ ],
+ "tipKat": {
+  "0": {
+   "GB": {
+    "brut": 108,
+    "emsal": 100,
+    "oda": "2+1 bahçe katı",
+    "konum": "Yol tarafı, köşe · 85 m² özel bahçe"
+   },
+   "GO": {
+    "brut": 87,
+    "emsal": 80,
+    "oda": "2+1 bahçe katı",
+    "konum": "Ara daire · 54 m² özel bahçe"
+   },
+   "GD": {
+    "brut": 106,
+    "emsal": 100,
+    "oda": "2+1 bahçe katı",
+    "konum": "Arka (komşu) tarafı, köşe · 99 m² özel bahçe"
+   }
+  },
+  "3": {
+   "KB": {
+    "brut": 151,
+    "emsal": 143,
+    "oda": "3+1 dubleks",
+    "konum": "Yol tarafı, köşe · çatı katı + 27,50 m² teras"
+   },
+   "KO": {
+    "brut": 131,
+    "emsal": 124,
+    "oda": "3+1 dubleks",
+    "konum": "Ara daire · çatı katı + 25,65 m² teras"
+   },
+   "KD": {
+    "brut": 149,
+    "emsal": 141,
+    "oda": "3+1 dubleks",
+    "konum": "Arka (komşu) tarafı, köşe · çatı katı + 27,50 m² teras"
+   }
+  }
+ },
+ "sira": [
+  "KB",
+  "KO",
+  "KD",
+  "GD",
+  "GO",
+  "GB"
+ ],
+ "daireTipleri": {
+  "KB": {
+   "brut": 105,
+   "emsal": 97,
+   "oda": "2+1",
+   "konum": "Yol tarafı, köşe daire"
+  },
+  "KO": {
+   "brut": 86,
+   "emsal": 79,
+   "oda": "2+1",
+   "konum": "Ara daire, açık mutfaklı"
+  },
+  "KD": {
+   "brut": 105,
+   "emsal": 97,
+   "oda": "2+1",
+   "konum": "Arka (komşu) tarafı, köşe"
+  },
+  "GD": {
+   "brut": 106,
+   "emsal": 100,
+   "oda": "2+1",
+   "konum": "Arka (komşu) tarafı, köşe"
+  },
+  "GO": {
+   "brut": 87,
+   "emsal": 80,
+   "oda": "2+1",
+   "konum": "Ara daire, açık mutfaklı",
+   "etiketKaydir": [
+    60,
+    230
+   ]
+  },
+  "GB": {
+   "brut": 108,
+   "emsal": 100,
+   "oda": "2+1",
+   "konum": "Yol tarafı, köşe daire"
+  }
+ },
+ "satis": {
+  "1": {
+   "durum": "satista",
+   "fiyat": 3930000
+  },
+  "2": {
+   "durum": "satildi",
+   "fiyat": 3100000
+  },
+  "3": {
+   "durum": "satista",
+   "fiyat": 3930000
+  },
+  "4": {
+   "durum": "satista",
+   "fiyat": 3970000
+  },
+  "5": {
+   "durum": "opsiyon",
+   "fiyat": 3130000
+  },
+  "6": {
+   "durum": "satista",
+   "fiyat": 4040000
+  },
+  "7": {
+   "durum": "satista",
+   "fiyat": 4010000
+  },
+  "8": {
+   "durum": "satildi",
+   "fiyat": 3160000
+  },
+  "9": {
+   "durum": "satildi",
+   "fiyat": 4010000
+  },
+  "10": {
+   "durum": "satista",
+   "fiyat": 4050000
+  },
+  "11": {
+   "durum": "satista",
+   "fiyat": 3190000
+  },
+  "12": {
+   "durum": "satista",
+   "fiyat": 4120000
+  },
+  "13": {
+   "durum": "satista",
+   "fiyat": 4090000
+  },
+  "14": {
+   "durum": "opsiyon",
+   "fiyat": 3220000
+  },
+  "15": {
+   "durum": "satista",
+   "fiyat": 4090000
+  },
+  "16": {
+   "durum": "satildi",
+   "fiyat": 4130000
+  },
+  "17": {
+   "durum": "satista",
+   "fiyat": 3260000
+  },
+  "18": {
+   "durum": "satista",
+   "fiyat": 4210000
+  },
+  "19": {
+   "durum": "satista",
+   "fiyat": 5990000
+  },
+  "20": {
+   "durum": "opsiyon",
+   "fiyat": 5000000
+  },
+  "21": {
+   "durum": "satista",
+   "fiyat": 5910000
+  },
+  "22": {
+   "durum": "satista",
+   "fiyat": 4210000
+  },
+  "23": {
+   "durum": "satildi",
+   "fiyat": 3320000
+  },
+  "24": {
+   "durum": "satista",
+   "fiyat": 4290000
+  }
+ }
+}
+</script>
+<script id="planlar" type="application/json">{"normal":{"w":3530,"h":2150,"p":{},"rooms":[[232,447,"Balkon","8.20"],[391,450,"Salon","24.25"],[285,874,"Mutfak","15.15"],[721,448,"Yatak Odası","15.70"],[1011,507,"Yatak Odası","18.20"],[862,850,"Banyo","5.35"],[602,724,"Hol","8.25"],[1076,834,"Eb. Banyo","3.95"],[240,1669,"Balkon","6.35"],[452,1632,"Salon","27.15"],[285,1277,"Mutfak","15.15"],[716,1749,"Yatak Odası","14.10"],[841,1214,"Banyo","5.35"],[705,1383,"Hol","8.25"],[1085,1328,"Eb. Banyo","4.00"],[1919,557,"Salon + Mutfak","28.10"],[1312,390,"Yatak Odası","17.15"],[1643,390,"Yatak Odası","13.75"],[1928,1450,"Salon + Mutfak","28.10"],[1312,1760,"Yatak Odası","14.65"],[1663,1760,"Yatak Odası","11.25"],[1264,1464,"E. Banyo","3.55"],[1553,1323,"Banyo","5.4"],[1696,663,"Hol","7.75"],[1298,674,"Eb. Banyo","2.55"],[1555,825,"Banyo","3.73"],[1726,1522,"Hol","10.30"],[2145,1994,"Balkon","6.70"],[2130,197,"Balkon","6.70"],[3139,450,"Salon","24.25"],[3246,804,"Mutfak","15.15"],[2810,448,"Yatak Odası","15.70"],[2556,458,"Yatak Odası","18.20"],[2895,887,"Banyo","5.15"],[3085,722,"Hol","8.25"],[2451,809,"Eb. Banyo","4.00"],[3290,1669,"Balkon","6.35"],[3100,1762,"Salon","27.15"],[3246,1277,"Mutfak","15.15"],[2815,1697,"Yatak Odası","14.10"],[2536,1692,"Yatak Odası","16.35"],[2689,1214,"Banyo","5.35"],[3091,1383,"Hol","8.25"],[2659,1311,"Eb. Banyo","4.00"],[3420,447,"Balkon","8.20"],[991,1644,"Yatak Odası","18.20"]],"units":{"KB":[[1250.0,682.0],[1250.0,938.0],[1064.0,938.0],[1064.0,982.0],[730.0,982.0],[730.0,998.0],[562.0,998.0],[562.0,953.9],[554.0,953.9],[554.0,1072.0],[102.0,1072.0],[102.0,716.0],[86.0,716.0],[86.0,86.0],[270.0,86.0],[270.0,102.0],[1250.0,102.0],[1250.0,672.0],[1164.1,672.0],[1154.1,682.0],[1250.0,682.0]],"KO":[[1552.0,910.0],[1482.0,910.0],[1482.0,768.0],[1256.0,768.0],[1256.0,101.9],[1866.0,104.0],[1866.0,86.0],[2274.0,86.0],[2274.0,248.0],[1864.0,248.0],[1864.0,276.0],[2274.0,276.0],[2274.0,982.0],[1860.0,982.0],[1860.0,998.0],[1706.0,998.0],[1706.0,980.0],[1552.0,980.0],[1552.0,910.0]],"KD":[[2466.0,982.0],[2466.0,926.0],[2282.0,926.0],[2282.0,102.0],[3262.0,102.0],[3262.0,86.0],[3444.0,86.0],[3444.0,716.0],[3430.0,716.0],[3430.0,1072.0],[2976.0,1072.0],[2976.0,936.0],[2794.0,936.0],[2794.0,982.0],[2466.0,982.0]],"GB":[[102.0,1804.0],[86.0,1804.0],[86.0,1434.0],[248.0,1434.0],[248.0,1812.0],[276.0,1812.0],[276.0,1472.0],[548.1,1472.0],[556.0,1479.9],[556.0,1426.0],[102.0,1426.0],[102.0,1078.0],[554.0,1078.0],[554.0,1214.0],[736.0,1214.0],[736.0,1168.0],[1060.0,1168.0],[1060.0,1212.0],[1250.0,1212.0],[1250.0,1470.0],[1157.8,1470.0],[1157.8,1478.0],[1250.0,1478.0],[1250.0,2050.0],[276.0,2050.0],[276.0,2024.0],[244.0,2024.0],[244.0,2050.0],[102.0,2050.0],[102.0,1804.0]],"GO":[[2294.0,2064.0],[1886.0,2064.0],[1886.0,2050.0],[1256.0,2050.0],[1256.0,1378.0],[1368.0,1378.0],[1368.0,1448.0],[1440.0,1448.0],[1440.0,1378.0],[1542.0,1378.0],[1542.0,1266.0],[1616.0,1266.0],[1616.0,1170.0],[1706.0,1170.0],[1706.0,1152.0],[1880.0,1152.0],[1880.0,1164.0],[2294.0,1164.0],[2294.0,2064.0]],"GD":[[2981.9,1472.0],[3254.0,1472.0],[3254.0,1812.0],[3282.0,1812.0],[3282.0,1434.0],[3444.0,1434.0],[3444.0,1804.0],[3430.0,1804.0],[3430.0,2050.0],[3286.0,2050.0],[3286.0,2024.0],[3254.0,2024.0],[3254.0,2050.0],[2302.0,2050.0],[2302.0,1478.0],[2474.2,1478.0],[2474.2,1470.0],[2302.0,1470.0],[2302.0,1210.0],[2472.0,1210.0],[2472.0,1164.0],[2794.0,1164.0],[2794.0,1212.0],[2976.0,1212.0],[2976.0,1078.0],[3430.0,1078.0],[3430.0,1426.0],[2974.0,1426.0],[2974.0,1479.9],[2981.9,1472.0]]}},"ucuncu":{"w":3530,"h":2150,"p":{},"rooms":[[232,446,"Balkon","8.20"],[391,449,"Salon","24.25"],[285,873,"Mutfak","15.15"],[1011,407,"Yatak Odası","13.75"],[929,849,"Banyo","4.80"],[602,723,"Hol","8.25"],[240,1668,"Balkon","6.35"],[452,1631,"Salon","27.15"],[285,1276,"Mutfak","15.15"],[1919,556,"Salon + Mutfak","28.10"],[1313,390,"Yatak Odası","14.40"],[1606,269,"Yatak Odası","11.10"],[1928,1449,"Salon + Mutfak","28.10"],[1333,1759,"Yatak Odası","15.45"],[1663,1759,"Yatak Odası","11.25"],[1284,1463,"E. Banyo","3.55"],[1553,1323,"Banyo","5.4"],[1696,663,"Hol","7.75"],[1535,824,"Banyo","3.73"],[1726,1521,"Hol","10.30"],[2145,1994,"Balkon","6.70"],[2130,196,"Balkon","6.70"],[3139,449,"Salon","24.25"],[3246,803,"Mutfak","15.15"],[2502,314,"Yatak Odası","14.00"],[2760,842,"Banyo","5.05"],[3086,721,"Hol","8.25"],[3290,1668,"Balkon","6.35"],[3100,1761,"Salon","27.15"],[3246,1276,"Mutfak","15.15"],[2815,1696,"Yatak Odası","14.10"],[2537,1691,"Yatak Odası","16.35"],[2689,1214,"Banyo","5.35"],[3091,1382,"Hol","8.25"],[2659,1311,"Eb. Banyo","4.15"],[3420,446,"Balkon","8.20"],[771,849,"Kiler","2.55"],[820,541,"Eb. Banyo","2.00"],[2674,860,"Kiler","2.55"],[2825,314,"Yatak Odası","11.80"],[2599,522,"Eb. Banyo","2.00"],[724,351,"Yatak Odası","10.00"],[1579,522,"Eb. Banyo","2.00"],[716,1749,"Yatak Odası","14.10"],[842,1214,"Banyo","5.35"],[705,1382,"Hol","8.25"],[1085,1327,"Eb. Banyo","4.00"],[991,1643,"Yatak Odası","18.20"]],"units":{"KB":[[554.0,1072.0],[102.0,1072.0],[102.0,716.0],[86.0,716.0],[86.0,86.0],[270.0,86.0],[270.0,100.0],[1250.0,100.0],[1250.0,936.0],[1064.0,936.0],[1064.0,982.0],[730.0,982.0],[730.0,998.0],[562.0,998.0],[562.0,953.9],[554.0,953.9],[554.0,1072.0]],"KO":[[1482.0,768.0],[1440.0,768.0],[1440.0,830.0],[1225.0,830.0],[1225.0,580.0],[1432.2,580.0],[1431.9,552.0],[1256.0,552.0],[1256.0,99.9],[1872.0,102.0],[1872.0,86.0],[2274.0,86.0],[2274.0,248.0],[1864.0,248.0],[1864.0,276.0],[2274.0,276.0],[2274.0,982.0],[1866.0,982.0],[1866.0,936.0],[1678.0,936.0],[1678.0,980.0],[1482.0,980.0],[1482.0,768.0]],"KD":[[2282.0,982.0],[2282.0,100.0],[3262.0,100.0],[3262.0,86.0],[3444.0,86.0],[3444.0,716.0],[3430.0,716.0],[3430.0,1072.0],[2976.0,1072.0],[2976.0,936.0],[2794.0,936.0],[2794.0,982.0],[2646.0,982.0],[2646.0,812.0],[2604.0,812.0],[2604.0,982.0],[2282.0,982.0]],"GB":[[102.0,1804.0],[86.0,1804.0],[86.0,1434.0],[248.0,1434.0],[248.0,1810.0],[276.0,1810.0],[276.0,1472.0],[548.1,1472.0],[556.0,1479.9],[556.0,1426.0],[102.0,1426.0],[102.0,1078.0],[554.0,1078.0],[554.0,1214.0],[736.0,1214.0],[736.0,1166.0],[1060.0,1166.0],[1060.0,1212.0],[1250.0,1212.0],[1250.0,2048.0],[276.0,2048.0],[276.0,2024.0],[244.0,2024.0],[244.0,2048.0],[102.0,2048.0],[102.0,1804.0]],"GO":[[2294.0,2042.1],[2302.8,2064.0],[1892.0,2064.0],[1892.0,2048.0],[1256.0,2048.0],[1256.0,1376.0],[1368.0,1376.0],[1368.0,1446.0],[1440.0,1446.0],[1440.0,1376.0],[1542.0,1376.0],[1542.0,1264.0],[1616.0,1264.0],[1616.0,1166.0],[1700.0,1166.0],[1700.0,1214.0],[1886.0,1214.0],[1886.0,1166.0],[2294.0,1166.0],[2294.0,2042.1]],"GD":[[2981.9,1472.0],[3254.0,1472.0],[3254.0,1810.0],[3282.0,1810.0],[3282.0,1434.0],[3444.0,1434.0],[3444.0,1804.0],[3430.0,1804.0],[3430.0,2048.0],[3286.0,2048.0],[3286.0,2024.0],[3254.0,2024.0],[3254.0,2048.0],[2302.0,2048.0],[2302.0,1478.0],[2474.2,1478.0],[2474.2,1470.0],[2302.0,1470.0],[2302.0,1206.0],[2472.0,1206.0],[2472.0,1166.0],[2794.0,1166.0],[2794.0,1212.0],[2976.0,1212.0],[2976.0,1078.0],[3430.0,1078.0],[3430.0,1426.0],[2974.0,1426.0],[2974.0,1479.9],[2981.9,1472.0]]}},"cati":{"w":3530,"h":2150,"p":{},"rooms":[[765.0,660.0,"Çatı katı holü","12.60"],[600.0,290.0,"Teras","27.50"],[1665.0,660.0,"Çatı katı holü","12.95"],[1780.0,290.0,"Teras","25.65"],[2765.0,660.0,"Çatı katı holü","10.80"],[2930.0,290.0,"Teras","27.50"]],"units":{"KB":[[1240.0,490.0],[1240.0,830.0],[290.0,830.0],[290.0,490.0],[290.0,90.0],[910.0,90.0],[910.0,490.0],[1240.0,490.0]],"KO":[[2080.0,830.0],[1250.0,830.0],[1250.0,490.0],[1480.0,490.0],[1480.0,90.0],[2080.0,90.0],[2080.0,490.0],[2080.0,830.0]],"KD":[[3240.0,830.0],[2290.0,830.0],[2290.0,490.0],[2620.0,490.0],[2620.0,90.0],[3240.0,90.0],[3240.0,490.0],[3240.0,830.0]]}},"bahce":{"w":3530,"h":2150,"p":{},"rooms":[[232,447,"Balkon","8.20"],[391,450,"Salon","24.25"],[285,874,"Mutfak","15.15"],[721,448,"Yatak Odası","15.70"],[1011,507,"Yatak Odası","18.20"],[862,850,"Banyo","5.35"],[602,724,"Hol","8.25"],[1076,834,"Eb. Banyo","3.95"],[240,1669,"Balkon","6.35"],[452,1632,"Salon","27.15"],[285,1277,"Mutfak","15.15"],[716,1749,"Yatak Odası","14.10"],[841,1214,"Banyo","5.35"],[705,1383,"Hol","8.25"],[1085,1328,"Eb. Banyo","4.00"],[1919,557,"Salon + Mutfak","28.10"],[1312,390,"Yatak Odası","17.15"],[1643,390,"Yatak Odası","13.75"],[1928,1450,"Salon + Mutfak","28.10"],[1312,1760,"Yatak Odası","14.65"],[1663,1760,"Yatak Odası","11.25"],[1264,1464,"E. Banyo","3.55"],[1553,1323,"Banyo","5.4"],[1696,663,"Hol","7.75"],[1298,674,"Eb. Banyo","2.55"],[1555,825,"Banyo","3.73"],[1726,1522,"Hol","10.30"],[2145,1994,"Balkon","6.70"],[2130,197,"Balkon","6.70"],[3139,450,"Salon","24.25"],[3246,804,"Mutfak","15.15"],[2810,448,"Yatak Odası","15.70"],[2556,458,"Yatak Odası","18.20"],[2895,887,"Banyo","5.15"],[3085,722,"Hol","8.25"],[2451,809,"Eb. Banyo","4.00"],[3290,1669,"Balkon","6.35"],[3100,1762,"Salon","27.15"],[3246,1277,"Mutfak","15.15"],[2815,1697,"Yatak Odası","14.10"],[2536,1692,"Yatak Odası","16.35"],[2689,1214,"Banyo","5.35"],[3091,1383,"Hol","8.25"],[2659,1311,"Eb. Banyo","4.00"],[3420,447,"Balkon","8.20"],[991,1644,"Yatak Odası","18.20"],[39,2452,"Özel bahçe","85.0"],[1550,2398,"Özel bahçe","54.2"],[2580,2466,"Özel bahçe","98.9"]],"units":{"KB":[[1250.0,682.0],[1250.0,938.0],[1064.0,938.0],[1064.0,982.0],[730.0,982.0],[730.0,998.0],[562.0,998.0],[562.0,953.9],[554.0,953.9],[554.0,1072.0],[102.0,1072.0],[102.0,716.0],[86.0,716.0],[86.0,86.0],[270.0,86.0],[270.0,102.0],[1250.0,102.0],[1250.0,672.0],[1164.1,672.0],[1154.1,682.0],[1250.0,682.0]],"KO":[[1552.0,910.0],[1482.0,910.0],[1482.0,768.0],[1256.0,768.0],[1256.0,101.9],[1866.0,104.0],[1866.0,86.0],[2274.0,86.0],[2274.0,248.0],[1864.0,248.0],[1864.0,276.0],[2274.0,276.0],[2274.0,982.0],[1860.0,982.0],[1860.0,998.0],[1706.0,998.0],[1706.0,980.0],[1552.0,980.0],[1552.0,910.0]],"KD":[[2466.0,982.0],[2466.0,926.0],[2282.0,926.0],[2282.0,102.0],[3262.0,102.0],[3262.0,86.0],[3444.0,86.0],[3444.0,716.0],[3430.0,716.0],[3430.0,1072.0],[2976.0,1072.0],[2976.0,936.0],[2794.0,936.0],[2794.0,982.0],[2466.0,982.0]],"GB":[[-30.0,2060.0],[-30.0,2060.1],[-30.0,2650.1],[-30.0,2650.2],[-29.8,2650.2],[1249.9,2597.9],[1250.0,2597.9],[1250.0,2597.8],[1250.0,2060.1],[1250.0,2060.0],[1249.8,2059.8],[1249.7,2059.8],[1249.3,2059.4],[1248.9,2059.0],[1248.5,2058.6],[1248.2,2058.1],[1247.9,2057.6],[1247.7,2057.0],[1247.5,2056.4],[1247.4,2055.9],[1247.3,2055.3],[1247.3,2054.7],[1247.4,2054.1],[1247.5,2053.5],[1247.7,2053.0],[1247.9,2052.4],[1248.2,2051.9],[1248.5,2051.4],[1248.9,2051.0],[1249.3,2050.5],[1249.8,2050.2],[1250.0,2050.0],[1250.0,2049.9],[1250.0,1478.1],[1250.0,1478.0],[1250.0,1478.0],[1249.6,1477.6],[1249.3,1477.1],[1249.0,1476.6],[1248.8,1476.0],[1248.6,1475.5],[1248.5,1474.9],[1248.5,1474.3],[1248.5,1473.7],[1248.5,1473.1],[1248.6,1472.5],[1248.8,1472.0],[1249.0,1471.4],[1249.3,1470.9],[1249.6,1470.4],[1250.0,1470.0],[1250.0,1470.0],[1250.0,1469.9],[1250.0,1212.1],[1250.0,1212.0],[1249.9,1212.0],[1066.0,1212.0],[1065.4,1212.0],[1064.8,1211.9],[1064.3,1211.7],[1063.7,1211.5],[1063.2,1211.3],[1062.7,1211.0],[1062.2,1210.6],[1061.8,1210.2],[1061.4,1209.8],[1061.0,1209.3],[1060.7,1208.8],[1060.5,1208.3],[1060.3,1207.7],[1060.1,1207.2],[1060.0,1206.6],[1060.0,1206.0],[1060.0,1168.1],[1060.0,1168.0],[1059.9,1168.0],[736.1,1168.0],[736.0,1168.0],[736.0,1168.1],[736.0,1208.0],[736.0,1208.6],[735.9,1209.2],[735.7,1209.7],[735.5,1210.3],[735.3,1210.8],[735.0,1211.3],[734.6,1211.8],[734.2,1212.2],[733.8,1212.6],[733.3,1213.0],[732.8,1213.3],[732.3,1213.5],[731.7,1213.7],[731.2,1213.9],[730.6,1214.0],[730.0,1214.0],[560.0,1214.0],[559.4,1214.0],[558.8,1213.9],[558.3,1213.7],[557.7,1213.5],[557.2,1213.3],[556.7,1213.0],[556.2,1212.6],[555.8,1212.2],[555.4,1211.8],[555.0,1211.3],[554.7,1210.8],[554.5,1210.3],[554.3,1209.7],[554.1,1209.2],[554.0,1208.6],[554.0,1208.0],[554.0,1078.1],[554.0,1078.0],[553.9,1078.0],[102.1,1078.0],[102.0,1078.0],[102.0,1078.1],[102.0,1425.9],[102.0,1426.0],[102.0,1426.0],[102.2,1426.5],[102.3,1427.1],[102.3,1427.7],[102.3,1428.2],[102.3,1428.8],[102.2,1429.4],[102.0,1429.9],[101.8,1430.5],[101.6,1431.0],[101.3,1431.5],[100.9,1431.9],[100.5,1432.3],[100.1,1432.7],[99.6,1433.0],[99.1,1433.3],[98.6,1433.6],[98.1,1433.8],[97.5,1433.9],[96.9,1434.0],[96.4,1434.0],[86.1,1434.0],[86.0,1434.0],[86.0,1434.1],[86.0,1803.9],[86.0,1804.0],[86.1,1804.0],[96.0,1804.0],[96.6,1804.0],[97.2,1804.1],[97.7,1804.3],[98.3,1804.5],[98.8,1804.7],[99.3,1805.0],[99.8,1805.4],[100.2,1805.8],[100.6,1806.2],[101.0,1806.7],[101.3,1807.2],[101.5,1807.7],[101.7,1808.3],[101.9,1808.8],[102.0,1809.4],[102.0,1810.0],[102.0,2049.9],[102.0,2050.0],[102.0,2050.0],[102.3,2050.4],[102.7,2050.9],[102.9,2051.4],[103.2,2051.9],[103.3,2052.5],[103.5,2053.0],[103.5,2053.6],[103.5,2054.2],[103.5,2054.8],[103.4,2055.3],[103.2,2055.9],[103.0,2056.4],[102.8,2056.9],[102.5,2057.4],[102.1,2057.9],[101.7,2058.3],[101.3,2058.7],[100.8,2059.0],[100.3,2059.3],[99.8,2059.6],[99.2,2059.8],[98.7,2059.9],[98.1,2060.0],[97.5,2060.0],[-29.9,2060.0],[-30.0,2060.0]],"GO":[[1250.0,2060.0],[1250.0,2060.1],[1250.0,2597.7],[1250.0,2597.9],[1250.2,2597.9],[1786.8,2576.0],[1787.2,2576.0],[2279.8,2595.9],[2280.0,2595.9],[2280.0,2595.7],[2280.0,2070.0],[2280.0,2069.4],[2280.1,2068.8],[2280.3,2068.3],[2280.5,2067.7],[2280.7,2067.2],[2281.0,2066.7],[2281.4,2066.2],[2281.8,2065.8],[2282.2,2065.4],[2282.7,2065.0],[2283.2,2064.7],[2283.7,2064.5],[2284.3,2064.3],[2284.8,2064.1],[2285.4,2064.0],[2286.0,2064.0],[2293.9,2064.0],[2294.0,2064.0],[2294.0,2063.9],[2294.0,1164.1],[2294.0,1164.0],[2293.9,1164.0],[1886.0,1164.0],[1885.4,1164.0],[1884.8,1163.9],[1884.3,1163.7],[1883.7,1163.5],[1883.2,1163.3],[1882.7,1163.0],[1882.2,1162.6],[1881.8,1162.2],[1881.4,1161.8],[1881.0,1161.3],[1880.7,1160.8],[1880.5,1160.3],[1880.3,1159.7],[1880.1,1159.2],[1880.0,1158.6],[1880.0,1158.0],[1880.0,1152.1],[1880.0,1152.0],[1879.9,1152.0],[1706.1,1152.0],[1706.0,1152.0],[1706.0,1152.1],[1706.0,1164.0],[1706.0,1164.6],[1705.9,1165.2],[1705.7,1165.7],[1705.5,1166.3],[1705.3,1166.8],[1705.0,1167.3],[1704.6,1167.8],[1704.2,1168.2],[1703.8,1168.6],[1703.3,1169.0],[1702.8,1169.3],[1702.3,1169.5],[1701.7,1169.7],[1701.2,1169.9],[1700.6,1170.0],[1700.0,1170.0],[1616.1,1170.0],[1616.0,1170.0],[1616.0,1170.1],[1616.0,1260.0],[1616.0,1260.6],[1615.9,1261.2],[1615.7,1261.7],[1615.5,1262.3],[1615.3,1262.8],[1615.0,1263.3],[1614.6,1263.8],[1614.2,1264.2],[1613.8,1264.6],[1613.3,1265.0],[1612.8,1265.3],[1612.3,1265.5],[1611.7,1265.7],[1611.2,1265.9],[1610.6,1266.0],[1610.0,1266.0],[1542.1,1266.0],[1542.0,1266.0],[1542.0,1266.1],[1542.0,1372.0],[1542.0,1372.6],[1541.9,1373.2],[1541.7,1373.7],[1541.5,1374.3],[1541.3,1374.8],[1541.0,1375.3],[1540.6,1375.8],[1540.2,1376.2],[1539.8,1376.6],[1539.3,1377.0],[1538.8,1377.3],[1538.3,1377.5],[1537.7,1377.7],[1537.2,1377.9],[1536.6,1378.0],[1536.0,1378.0],[1440.1,1378.0],[1440.0,1378.0],[1440.0,1378.1],[1440.0,1442.0],[1440.0,1442.6],[1439.9,1443.2],[1439.7,1443.7],[1439.5,1444.3],[1439.3,1444.8],[1439.0,1445.3],[1438.6,1445.8],[1438.2,1446.2],[1437.8,1446.6],[1437.3,1447.0],[1436.8,1447.3],[1436.3,1447.5],[1435.7,1447.7],[1435.2,1447.9],[1434.6,1448.0],[1434.0,1448.0],[1374.0,1448.0],[1373.4,1448.0],[1372.8,1447.9],[1372.3,1447.7],[1371.7,1447.5],[1371.2,1447.3],[1370.7,1447.0],[1370.2,1446.6],[1369.8,1446.2],[1369.4,1445.8],[1369.0,1445.3],[1368.7,1444.8],[1368.5,1444.3],[1368.3,1443.7],[1368.1,1443.2],[1368.0,1442.6],[1368.0,1442.0],[1368.0,1378.1],[1368.0,1378.0],[1367.9,1378.0],[1256.1,1378.0],[1256.0,1378.0],[1256.0,1378.1],[1256.0,2049.9],[1256.0,2050.0],[1256.0,2050.0],[1256.3,2050.4],[1256.7,2050.9],[1256.9,2051.4],[1257.2,2051.9],[1257.3,2052.5],[1257.5,2053.0],[1257.5,2053.6],[1257.5,2054.2],[1257.5,2054.8],[1257.4,2055.3],[1257.2,2055.9],[1257.0,2056.4],[1256.8,2056.9],[1256.5,2057.4],[1256.1,2057.9],[1255.7,2058.3],[1255.3,2058.7],[1254.8,2059.0],[1254.3,2059.3],[1253.8,2059.6],[1253.2,2059.8],[1252.7,2059.9],[1252.1,2060.0],[1251.5,2060.0],[1250.1,2060.0],[1250.0,2060.0]],"GD":[[2280.0,2595.8],[2280.0,2595.9],[2280.1,2595.9],[3559.8,2647.6],[3560.0,2647.6],[3560.0,2647.5],[3560.0,2060.1],[3560.0,2060.0],[3559.9,2060.0],[3434.5,2060.0],[3433.9,2060.0],[3433.3,2059.9],[3432.8,2059.8],[3432.2,2059.6],[3431.7,2059.3],[3431.2,2059.0],[3430.7,2058.7],[3430.3,2058.3],[3429.9,2057.9],[3429.5,2057.4],[3429.2,2056.9],[3429.0,2056.4],[3428.8,2055.9],[3428.6,2055.3],[3428.5,2054.8],[3428.5,2054.2],[3428.5,2053.6],[3428.5,2053.0],[3428.7,2052.5],[3428.8,2051.9],[3429.1,2051.4],[3429.3,2050.9],[3429.7,2050.4],[3430.0,2050.0],[3430.0,2050.0],[3430.0,2049.9],[3430.0,1810.0],[3430.0,1809.4],[3430.1,1808.8],[3430.3,1808.3],[3430.5,1807.7],[3430.7,1807.2],[3431.0,1806.7],[3431.4,1806.2],[3431.8,1805.8],[3432.2,1805.4],[3432.7,1805.0],[3433.2,1804.7],[3433.7,1804.5],[3434.3,1804.3],[3434.8,1804.1],[3435.4,1804.0],[3436.0,1804.0],[3443.9,1804.0],[3444.0,1804.0],[3444.0,1803.9],[3444.0,1434.1],[3444.0,1434.0],[3443.9,1434.0],[3435.6,1434.0],[3435.0,1434.0],[3434.4,1433.9],[3433.9,1433.7],[3433.3,1433.5],[3432.8,1433.3],[3432.2,1432.9],[3431.8,1432.6],[3431.3,1432.2],[3430.9,1431.7],[3430.6,1431.2],[3430.3,1430.7],[3430.0,1430.1],[3429.9,1429.5],[3429.7,1429.0],[3429.7,1428.4],[3429.7,1427.8],[3429.7,1427.2],[3429.8,1426.6],[3430.0,1426.0],[3430.0,1426.0],[3430.0,1425.9],[3430.0,1078.1],[3430.0,1078.0],[3429.9,1078.0],[2976.1,1078.0],[2976.0,1078.0],[2976.0,1078.1],[2976.0,1206.0],[2976.0,1206.6],[2975.9,1207.2],[2975.7,1207.7],[2975.5,1208.3],[2975.3,1208.8],[2975.0,1209.3],[2974.6,1209.8],[2974.2,1210.2],[2973.8,1210.6],[2973.3,1211.0],[2972.8,1211.3],[2972.3,1211.5],[2971.7,1211.7],[2971.2,1211.9],[2970.6,1212.0],[2970.0,1212.0],[2800.0,1212.0],[2799.4,1212.0],[2798.8,1211.9],[2798.3,1211.7],[2797.7,1211.5],[2797.2,1211.3],[2796.7,1211.0],[2796.2,1210.6],[2795.8,1210.2],[2795.4,1209.8],[2795.0,1209.3],[2794.7,1208.8],[2794.5,1208.3],[2794.3,1207.7],[2794.1,1207.2],[2794.0,1206.6],[2794.0,1206.0],[2794.0,1164.1],[2794.0,1164.0],[2793.9,1164.0],[2472.1,1164.0],[2472.0,1164.0],[2472.0,1164.1],[2472.0,1204.0],[2472.0,1204.6],[2471.9,1205.2],[2471.7,1205.7],[2471.5,1206.3],[2471.3,1206.8],[2471.0,1207.3],[2470.6,1207.8],[2470.2,1208.2],[2469.8,1208.6],[2469.3,1209.0],[2468.8,1209.3],[2468.3,1209.5],[2467.7,1209.7],[2467.2,1209.9],[2466.6,1210.0],[2466.0,1210.0],[2302.1,1210.0],[2302.0,1210.0],[2302.0,1210.1],[2302.0,1469.9],[2302.0,1470.0],[2302.0,1470.0],[2302.4,1470.4],[2302.7,1470.9],[2303.0,1471.4],[2303.2,1472.0],[2303.4,1472.5],[2303.5,1473.1],[2303.5,1473.7],[2303.5,1474.3],[2303.5,1474.9],[2303.4,1475.5],[2303.2,1476.0],[2303.0,1476.6],[2302.7,1477.1],[2302.4,1477.6],[2302.0,1478.0],[2302.0,1478.0],[2302.0,1478.1],[2302.0,2049.9],[2302.0,2050.0],[2302.0,2050.0],[2302.3,2050.4],[2302.7,2050.9],[2302.9,2051.4],[2303.2,2051.9],[2303.3,2052.5],[2303.5,2053.0],[2303.5,2053.6],[2303.5,2054.2],[2303.5,2054.8],[2303.4,2055.3],[2303.2,2055.9],[2303.0,2056.4],[2302.8,2056.9],[2302.5,2057.4],[2302.1,2057.9],[2301.7,2058.3],[2301.3,2058.7],[2300.8,2059.0],[2300.3,2059.3],[2299.8,2059.6],[2299.2,2059.8],[2298.7,2059.9],[2298.1,2060.0],[2297.5,2060.0],[2280.1,2060.0],[2280.0,2060.0],[2280.0,2060.1],[2280.0,2595.8]]},"img":[-30,-30,3590,2790]}}</script>
+
+<script id="donus" type="application/json">{"en":1600,"boy":1000,"kareler":[{"az":-35.0,"kat":[[[0.2269,0.5145],[0.3566,0.7022],[0.7631,0.4899],[0.759,0.5477],[0.3596,0.774],[0.2314,0.574]],[[0.2223,0.453],[0.3535,0.6272],[0.7674,0.4303],[0.7631,0.4899],[0.3566,0.7022],[0.2269,0.5145]],[[0.2176,0.3893],[0.3503,0.5489],[0.7718,0.3686],[0.7674,0.4303],[0.3535,0.6272],[0.2223,0.453]],[[0.2126,0.3235],[0.3469,0.4671],[0.7764,0.3049],[0.7718,0.3686],[0.3503,0.5489],[0.2176,0.3893]]]},{"az":-20.0,"kat":[[[0.2885,0.6647],[0.7772,0.5352],[0.7725,0.5962],[0.2927,0.7342]],[[0.2841,0.5923],[0.782,0.4721],[0.7772,0.5352],[0.2885,0.6647]],[[0.2796,0.5168],[0.787,0.4068],[0.782,0.4721],[0.2841,0.5923]],[[0.2748,0.4381],[0.7922,0.3391],[0.787,0.4068],[0.2796,0.5168]]]},{"az":-5.0,"kat":[[[0.244,0.6178],[0.772,0.5845],[0.7671,0.6488],[0.2488,0.6844]],[[0.239,0.5487],[0.7771,0.5178],[0.772,0.5845],[0.244,0.6178]],[[0.2338,0.4768],[0.7824,0.4485],[0.7771,0.5178],[0.239,0.5487]],[[0.2284,0.402],[0.7878,0.3766],[0.7824,0.4485],[0.2338,0.4768]]]},{"az":10.0,"kat":[[[0.2239,0.5678],[0.7439,0.6341],[0.7393,0.7017],[0.2287,0.631]],[[0.2188,0.5023],[0.7488,0.5638],[0.7439,0.6341],[0.2239,0.5678]],[[0.2136,0.4344],[0.7538,0.4907],[0.7488,0.5638],[0.2188,0.5023]],[[0.2082,0.3638],[0.7591,0.4145],[0.7538,0.4907],[0.2136,0.4344]]]},{"az":25.0,"kat":[[[0.2256,0.5195],[0.6912,0.6785],[0.6874,0.7489],[0.2301,0.5794]],[[0.2209,0.4576],[0.6952,0.6052],[0.6912,0.6785],[0.2256,0.5195]],[[0.2161,0.3935],[0.6994,0.5287],[0.6952,0.6052],[0.2209,0.4576]],[[0.2111,0.3272],[0.7038,0.4488],[0.6994,0.5287],[0.2161,0.3935]]]},{"az":40.0,"kat":[[[0.2451,0.4761],[0.6162,0.7115],[0.7765,0.53],[0.7719,0.5906],[0.6138,0.7839],[0.249,0.5329]],[[0.241,0.4176],[0.6188,0.6359],[0.7813,0.4673],[0.7765,0.53],[0.6162,0.7115],[0.2451,0.4761]],[[0.2369,0.3571],[0.6214,0.5569],[0.7862,0.4024],[0.7813,0.4673],[0.6188,0.6359],[0.241,0.4176]],[[0.2325,0.2946],[0.6242,0.4743],[0.7913,0.3352],[0.7862,0.4024],[0.6214,0.5569],[0.2369,0.3571]]]},{"az":55.0,"kat":[[[0.278,0.4395],[0.5263,0.7272],[0.7737,0.579],[0.7688,0.643],[0.5257,0.8005],[0.2812,0.4936]],[[0.2747,0.3838],[0.5269,0.6506],[0.7787,0.5127],[0.7737,0.579],[0.5263,0.7272],[0.278,0.4395]],[[0.2713,0.3264],[0.5275,0.5704],[0.784,0.4439],[0.7787,0.5127],[0.5269,0.6506],[0.2747,0.3838]],[[0.2677,0.2672],[0.5281,0.4866],[0.7894,0.3724],[0.784,0.4439],[0.5275,0.5704],[0.2713,0.3264]]]},{"az":70.0,"kat":[[[0.4328,0.7226],[0.7482,0.6288],[0.7435,0.6961],[0.4342,0.7957]],[[0.4313,0.6463],[0.7531,0.5589],[0.7482,0.6288],[0.4328,0.7226]],[[0.4297,0.5665],[0.7582,0.4862],[0.7531,0.5589],[0.4313,0.6463]],[[0.4281,0.483],[0.7635,0.4105],[0.7582,0.4862],[0.4297,0.5665]]]},{"az":85.0,"kat":[[[0.3482,0.6987],[0.6981,0.6741],[0.6941,0.7443],[0.3514,0.7704]],[[0.3449,0.624],[0.7023,0.6011],[0.6981,0.6741],[0.3482,0.6987]],[[0.3415,0.546],[0.7066,0.5249],[0.7023,0.6011],[0.3449,0.624]],[[0.338,0.4644],[0.7111,0.4454],[0.7066,0.5249],[0.3415,0.546]]]},{"az":100.0,"kat":[[[0.2825,0.6599],[0.6253,0.7086],[0.6227,0.7809],[0.2868,0.7292]],[[0.278,0.5878],[0.628,0.6332],[0.6253,0.7086],[0.2825,0.6599]],[[0.2733,0.5127],[0.6309,0.5545],[0.628,0.6332],[0.278,0.5878]],[[0.2685,0.4344],[0.6339,0.4721],[0.6309,0.5545],[0.2733,0.5127]]]},{"az":115.0,"kat":[[[0.2406,0.6124],[0.5365,0.7264],[0.6945,0.4192],[0.6918,0.4717],[0.5357,0.7997],[0.2455,0.6786]],[[0.2356,0.5437],[0.5373,0.6499],[0.6973,0.3651],[0.6945,0.4192],[0.5365,0.7264],[0.2406,0.6124]],[[0.2304,0.4722],[0.5381,0.5698],[0.7002,0.3094],[0.6973,0.3651],[0.5373,0.6499],[0.2356,0.5437]],[[0.225,0.3979],[0.539,0.486],[0.7032,0.2521],[0.7002,0.3094],[0.5381,0.5698],[0.2304,0.4722]]]},{"az":130.0,"kat":[[[0.2231,0.5624],[0.4427,0.7241],[0.7342,0.4509],[0.7307,0.5058],[0.4439,0.7973],[0.2279,0.6253]],[[0.218,0.4973],[0.4415,0.6477],[0.7378,0.3943],[0.7342,0.4509],[0.4427,0.7241],[0.2231,0.5624]],[[0.2129,0.4298],[0.4401,0.5678],[0.7415,0.3359],[0.7378,0.3943],[0.4415,0.6477],[0.218,0.4973]],[[0.2075,0.3597],[0.4387,0.4842],[0.7453,0.2757],[0.7415,0.3359],[0.4401,0.5678],[0.2129,0.4298]]]},{"az":145.0,"kat":[[[0.2269,0.5145],[0.3566,0.7022],[0.7631,0.4899],[0.759,0.5477],[0.3596,0.774],[0.2314,0.574]],[[0.2223,0.453],[0.3535,0.6272],[0.7674,0.4303],[0.7631,0.4899],[0.3566,0.7022],[0.2269,0.5145]],[[0.2176,0.3893],[0.3503,0.5489],[0.7718,0.3686],[0.7674,0.4303],[0.3535,0.6272],[0.2223,0.453]],[[0.2126,0.3235],[0.3469,0.4671],[0.7764,0.3049],[0.7718,0.3686],[0.3503,0.5489],[0.2176,0.3893]]]},{"az":160.0,"kat":[[[0.2885,0.6647],[0.7772,0.5352],[0.7725,0.5962],[0.2927,0.7342]],[[0.2841,0.5923],[0.782,0.4721],[0.7772,0.5352],[0.2885,0.6647]],[[0.2796,0.5168],[0.787,0.4068],[0.782,0.4721],[0.2841,0.5923]],[[0.2748,0.4381],[0.7922,0.3391],[0.787,0.4068],[0.2796,0.5168]]]},{"az":175.0,"kat":[[[0.244,0.6178],[0.772,0.5845],[0.7671,0.6488],[0.2488,0.6844]],[[0.239,0.5487],[0.7771,0.5178],[0.772,0.5845],[0.244,0.6178]],[[0.2338,0.4768],[0.7824,0.4485],[0.7771,0.5178],[0.239,0.5487]],[[0.2284,0.402],[0.7878,0.3766],[0.7824,0.4485],[0.2338,0.4768]]]},{"az":190.0,"kat":[[[0.2239,0.5678],[0.7439,0.6341],[0.7393,0.7017],[0.2287,0.631]],[[0.2188,0.5023],[0.7488,0.5638],[0.7439,0.6341],[0.2239,0.5678]],[[0.2136,0.4344],[0.7538,0.4907],[0.7488,0.5638],[0.2188,0.5023]],[[0.2082,0.3638],[0.7591,0.4145],[0.7538,0.4907],[0.2136,0.4344]]]},{"az":205.0,"kat":[[[0.2256,0.5195],[0.6912,0.6785],[0.6874,0.7489],[0.2301,0.5794]],[[0.2209,0.4576],[0.6952,0.6052],[0.6912,0.6785],[0.2256,0.5195]],[[0.2161,0.3935],[0.6994,0.5287],[0.6952,0.6052],[0.2209,0.4576]],[[0.2111,0.3272],[0.7038,0.4488],[0.6994,0.5287],[0.2161,0.3935]]]},{"az":220.0,"kat":[[[0.2451,0.4761],[0.6162,0.7115],[0.7765,0.53],[0.7719,0.5906],[0.6138,0.7839],[0.249,0.5329]],[[0.241,0.4176],[0.6188,0.6359],[0.7813,0.4673],[0.7765,0.53],[0.6162,0.7115],[0.2451,0.4761]],[[0.2369,0.3571],[0.6214,0.5569],[0.7862,0.4024],[0.7813,0.4673],[0.6188,0.6359],[0.241,0.4176]],[[0.2325,0.2946],[0.6242,0.4743],[0.7913,0.3352],[0.7862,0.4024],[0.6214,0.5569],[0.2369,0.3571]]]},{"az":235.0,"kat":[[[0.278,0.4395],[0.5263,0.7272],[0.7737,0.579],[0.7688,0.643],[0.5257,0.8005],[0.2812,0.4936]],[[0.2747,0.3838],[0.5269,0.6506],[0.7787,0.5127],[0.7737,0.579],[0.5263,0.7272],[0.278,0.4395]],[[0.2713,0.3264],[0.5275,0.5704],[0.784,0.4439],[0.7787,0.5127],[0.5269,0.6506],[0.2747,0.3838]],[[0.2677,0.2672],[0.5281,0.4866],[0.7894,0.3724],[0.784,0.4439],[0.5275,0.5704],[0.2713,0.3264]]]},{"az":250.0,"kat":[[[0.4328,0.7226],[0.7482,0.6288],[0.7435,0.6961],[0.4342,0.7957]],[[0.4313,0.6463],[0.7531,0.5589],[0.7482,0.6288],[0.4328,0.7226]],[[0.4297,0.5665],[0.7582,0.4862],[0.7531,0.5589],[0.4313,0.6463]],[[0.4281,0.483],[0.7635,0.4105],[0.7582,0.4862],[0.4297,0.5665]]]},{"az":265.0,"kat":[[[0.3482,0.6987],[0.6981,0.6741],[0.6941,0.7443],[0.3514,0.7704]],[[0.3449,0.624],[0.7023,0.6011],[0.6981,0.6741],[0.3482,0.6987]],[[0.3415,0.546],[0.7066,0.5249],[0.7023,0.6011],[0.3449,0.624]],[[0.338,0.4644],[0.7111,0.4454],[0.7066,0.5249],[0.3415,0.546]]]},{"az":280.0,"kat":[[[0.2825,0.6599],[0.6253,0.7086],[0.6227,0.7809],[0.2868,0.7292]],[[0.278,0.5878],[0.628,0.6332],[0.6253,0.7086],[0.2825,0.6599]],[[0.2733,0.5127],[0.6309,0.5545],[0.628,0.6332],[0.278,0.5878]],[[0.2685,0.4344],[0.6339,0.4721],[0.6309,0.5545],[0.2733,0.5127]]]},{"az":295.0,"kat":[[[0.2406,0.6124],[0.5365,0.7264],[0.6945,0.4192],[0.6918,0.4717],[0.5357,0.7997],[0.2455,0.6786]],[[0.2356,0.5437],[0.5373,0.6499],[0.6973,0.3651],[0.6945,0.4192],[0.5365,0.7264],[0.2406,0.6124]],[[0.2304,0.4722],[0.5381,0.5698],[0.7002,0.3094],[0.6973,0.3651],[0.5373,0.6499],[0.2356,0.5437]],[[0.225,0.3979],[0.539,0.486],[0.7032,0.2521],[0.7002,0.3094],[0.5381,0.5698],[0.2304,0.4722]]]},{"az":310.0,"kat":[[[0.2231,0.5624],[0.4427,0.7241],[0.7342,0.4509],[0.7307,0.5058],[0.4439,0.7973],[0.2279,0.6253]],[[0.218,0.4973],[0.4415,0.6477],[0.7378,0.3943],[0.7342,0.4509],[0.4427,0.7241],[0.2231,0.5624]],[[0.2129,0.4298],[0.4401,0.5678],[0.7415,0.3359],[0.7378,0.3943],[0.4415,0.6477],[0.218,0.4973]],[[0.2075,0.3597],[0.4387,0.4842],[0.7453,0.2757],[0.7415,0.3359],[0.4401,0.5678],[0.2129,0.4298]]]}]}</script>
+<script>
+(function(){
+'use strict';
+var V=JSON.parse(document.getElementById('veri').textContent);
+var P=JSON.parse(document.getElementById('planlar').textContent);
+var KATLAR=V.katlar, TIP=V.daireTipleri, SATIS=V.satis, WA=V.whatsapp;
+if(!V.ornekVeri) document.getElementById('ornekSerit').style.display='none';
+document.getElementById('pAd').textContent=V.proje.ad;
+document.getElementById('pYer').textContent=V.proje.yer;
+document.title=V.proje.ad+' | Satılık Daireler | Concordia';
+
+/* ---------- yardımcılar ---------- */
+function tl(n){return n==null?null:n.toLocaleString('tr-TR')+' ₺'}
+var DURUM={satista:['sat','Satışta'],opsiyon:['rez','Opsiyonlu'],satildi:['sold','Satıldı']};
+function daireNo(ki,ui){return ki*6+ui+1}
+function sira(ki){return KATLAR[ki].sira||V.sira}
+function daire(ki,kod){
+  var kk=(KATLAR[ki].noKat!=null?KATLAR[ki].noKat:ki), ui=V.sira.indexOf(kod), no=daireNo(kk,ui), s=SATIS[String(no)]||{durum:'satista',fiyat:null};
+  var tk=(V.tipKat&&V.tipKat[String(kk)]&&V.tipKat[String(kk)][kod])||TIP[kod];
+  return {no:no,kat:KATLAR[kk],ki:ki,kod:kod,tip:tk,durum:s.durum,fiyat:s.fiyat};
+}
+function katOzet(ki){
+  var n=0,min=null;
+  sira(ki).forEach(function(k){var d=daire(ki,k);if(d.durum==='satista'){n++;if(d.fiyat!=null&&(min==null||d.fiyat<min))min=d.fiyat;}});
+  return {n:n,min:min};
+}
+function waLink(metin){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(metin)}
+document.getElementById('navWa').href=waLink(V.proje.ad+' hakkında bilgi almak istiyorum.');
+
+/* ---------- sayılar + kat listesi ---------- */
+var top=0; KATLAR.forEach(function(k,ki){if(k.noKat==null)top+=katOzet(ki).n});
+document.getElementById('sSat').textContent=top;
+var ul=document.getElementById('katListe');
+for(var ki=KATLAR.length-1;ki>=0;ki--){
+  (function(ki){
+    var li=document.createElement('li'), o=katOzet(ki), kare='';
+    sira(ki).forEach(function(k){var d=daire(ki,k);kare+='<i class="'+(d.durum==='opsiyon'?'rez':d.durum==='satildi'?'sold':'')+'" title="Daire '+d.no+'"></i>'});
+    li.innerHTML='<span class="kn">'+KATLAR[ki].kisa+'</span><span class="kare">'+kare+'</span><span class="ks">'+o.n+' satışta</span>';
+    li.dataset.ki=ki;
+    li.addEventListener('mouseenter',function(){vurgula(ki)});
+    li.addEventListener('mouseleave',function(){vurgula(-1)});
+    li.addEventListener('click',function(){planAc(ki)});
+    ul.appendChild(li);
+  })(ki);
+}
+var bod=document.createElement('li');bod.className='pasif';
+bod.innerHTML='<span class="kn">O</span><span class="ks" style="grid-column:2/4">Otopark · giriş holü, asansör</span>';
+ul.appendChild(bod);
+
+/* ---------- tablo satırları tıklanabilir ---------- */
+(function(){var h='';KATLAR.forEach(function(k,ki){if(k.noKat!=null)return;V.sira.forEach(function(kod){var d=daire(ki,kod);
+  h+='<tr data-ki="'+ki+'" data-kod="'+kod+'"><td><b>Daire '+d.no+'</b></td><td>'+k.ad+'</td><td>'+d.tip.oda+'</td><td>'+d.tip.konum+'</td><td class="r">'+d.tip.brut+' m²</td><td class="r">'+(d.fiyat==null?'Sorunuz':tl(d.fiyat))+'</td><td>'+DURUM[d.durum][1]+'</td></tr>'})});
+  document.getElementById('tablo').innerHTML=h})();
+Array.prototype.forEach.call(document.querySelectorAll('#tablo tr'),function(tr){
+  tr.addEventListener('click',function(){planAc(+tr.dataset.ki,tr.dataset.kod);window.scrollTo({top:0,behavior:'smooth'})});
+});
+
+/* ================= BİNA: render dönüşü ================= */
+var vurgula=function(){};
+(function(){
+  var DN=JSON.parse(document.getElementById('donus').textContent), K=DN.kareler, n=K.length, i=0;
+  var gl=document.getElementById('gl'), img=document.getElementById('glImg'), sv=document.getElementById('glSvg'), et=document.getElementById('etiket'), yuk=document.getElementById('yuk');
+  var resim=[], yuklenen=0;
+  function src(j){return 'satilik/d'+(j<10?'0':'')+j+'.jpg'}
+  for(var j=0;j<n;j++){(function(j){var im=new Image();im.onload=function(){yuklenen++;yuk.style.width=(yuklenen/n*100)+'%';if(yuklenen===n)setTimeout(function(){yuk.style.opacity=0},400)};im.src=src(j);resim[j]=im})(j)}
+  var NS='http://www.w3.org/2000/svg', poly=[];
+  for(var k=0;k<KATLAR.length;k++){var p=document.createElementNS(NS,'polygon');p.setAttribute('class','kp');p.dataset.ki=k;sv.appendChild(p);poly.push(p);
+    (function(k){p.addEventListener('mouseenter',function(){if(!sur)vurgula(k)});p.addEventListener('mouseleave',function(){if(!sur)vurgula(-1)})})(k)}
+  var uz=-1;
+  function ciz(){img.src=src(i);
+    K[i].kat.forEach(function(pt,k){poly[k].setAttribute('points',pt.map(function(q){return (q[0]*1600).toFixed(1)+','+(q[1]*1000).toFixed(1)}).join(' '))});
+    etiketYer()}
+  vurgula=function(k){uz=k;poly.forEach(function(p,j){p.classList.toggle('on',j===k)});
+    Array.prototype.forEach.call(document.querySelectorAll('#katListe li'),function(li){li.classList.toggle('on',+li.dataset.ki===k)});
+    if(k<0){et.classList.remove('on');return}
+    var o=katOzet(k);et.querySelector('b').textContent=KATLAR[k].ad;
+    et.querySelector('span').textContent=o.n+' / '+sira(k).length+' daire satışta'+(o.min!=null?' · '+tl(o.min)+"'den":'');et.classList.add('on');etiketYer()};
+  function etiketYer(){}
+  function git(d){i=(i+d+n)%n;ciz()}
+  document.getElementById('sola').onclick=function(){git(-1)};document.getElementById('saga').onclick=function(){git(1)};
+  var bas=null,sur=false,i0=0;
+  gl.addEventListener('pointerdown',function(e){bas=e.clientX;i0=i;sur=false});
+  window.addEventListener('pointermove',function(e){if(bas==null)return;var dx=e.clientX-bas;if(Math.abs(dx)>6){sur=true;gl.classList.add('surukle')}
+    if(sur){var a=Math.round(-dx/22);var y=((i0+a)%n+n)%n;if(y!==i){i=y;ciz()}}});
+  window.addEventListener('pointerup',function(e){if(bas==null)return;gl.classList.remove('surukle');
+    if(!sur){var t=e.target;if(t&&t.classList&&t.classList.contains('kp')){var k=+t.dataset.ki;if(e.pointerType!=='mouse'&&uz!==k)vurgula(k);else planAc(k)}else vurgula(-1)}
+    bas=null;setTimeout(function(){sur=false},0)});
+  document.addEventListener('keydown',function(e){if(document.getElementById('planV').classList.contains('on'))return;if(e.key==='ArrowLeft')git(-1);if(e.key==='ArrowRight')git(1)});
+  window.addEventListener('resize',etiketYer);
+  ciz();
+})();
+
+/* ================= KAT PLANI ================= */
+var svg=document.getElementById('plan'), panel=document.getElementById('panel'), aktifKat=-1, aktifDaire=null;
+var NS='http://www.w3.org/2000/svg';
+function el(t,a,ic){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(ic)e.textContent=ic;return e}
+function icinde(pt,poly){var x=pt[0],y=pt[1],ic=false;for(var i=0,j=poly.length-1;i<poly.length;j=i++){var xi=poly[i][0],yi=poly[i][1],xj=poly[j][0],yj=poly[j][1];
+  if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))ic=!ic}return ic}
+function odalari(plan,kod){
+  var poly=plan.units[kod];
+  return plan.rooms.filter(function(r){return icinde([r[0]+4,r[1]+10],poly)}).map(function(r){return {ad:r[2],alan:parseFloat(r[3])}});
+}
+function planCiz(ki){
+  var plan=P[KATLAR[ki].plan];
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  var ib=plan.img||[-30,-30,3590,2210]; svg.setAttribute('viewBox',ib.join(' '));
+  var defs=el('defs');
+  defs.innerHTML='<pattern id="tRez" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="26" height="26" fill="rgba(201,138,43,.10)"/><line x1="0" y1="0" x2="0" y2="26" stroke="rgba(201,138,43,.45)" stroke-width="5"/></pattern>'+
+    '<pattern id="tSold" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="22" height="22" fill="rgba(74,70,63,.10)"/><line x1="0" y1="0" x2="0" y2="22" stroke="rgba(74,70,63,.35)" stroke-width="4"/></pattern>';
+  svg.appendChild(defs);
+  var im=el('image',{x:ib[0],y:ib[1],width:ib[2],height:ib[3],preserveAspectRatio:'none'});im.setAttribute('href','satilik/plan_'+KATLAR[ki].plan+'.jpg');svg.appendChild(im);
+  sira(ki).forEach(function(kod){
+    var d=daire(ki,kod), poly=plan.units[kod], cls=DURUM[d.durum][0];
+    var pg=el('polygon',{points:poly.map(function(p){return p.join(',')}).join(' '),'class':'u '+(cls==='sat'?'':cls),'data-kod':kod,tabindex:0,role:'button','aria-label':'Daire '+d.no+', '+DURUM[d.durum][1]});
+    pg.addEventListener('click',function(){daireSec(kod,true)});
+    pg.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();daireSec(kod,true)}});
+    svg.appendChild(pg);
+  });
+  sira(ki).forEach(function(kod){
+    var d=daire(ki,kod),poly=plan.units[kod],cx=0,cy=0;poly.forEach(function(p){cx+=p[0];cy+=p[1]});cx/=poly.length;cy/=poly.length;
+    var ys=poly.map(function(p){return p[1]}), kuzey=(kod.charAt(0)==='K')&&KATLAR[ki].plan!=='cati', yy=kuzey?Math.min.apply(null,ys)+95:Math.max.apply(null,ys)-60;
+    var g=el('g',{'class':'rozet '+DURUM[d.durum][0]});
+    g.appendChild(el('rect',{x:cx-200,y:yy-52,width:400,height:84,rx:42}));
+    g.appendChild(el('text',{x:cx,y:yy+4},'Daire '+d.no+' · '+DURUM[d.durum][1]));svg.appendChild(g);
+  });
+}
+function planAc(ki,kod){
+  aktifKat=ki;
+  document.getElementById('binaV').style.display='none';
+  document.getElementById('planV').classList.add('on');
+  var o=katOzet(ki);
+  document.getElementById('planBaslik').textContent=KATLAR[ki].ad;
+  document.getElementById('planAlt').textContent=sira(ki).length+' daireden '+o.n+' tanesi satışta'+(o.min!=null?', '+tl(o.min)+"'den başlayan fiyatlarla":'');
+  document.getElementById('katAsagi').disabled=ki===0;
+  document.getElementById('katYukari').disabled=ki===KATLAR.length-1;
+  planCiz(ki);
+  if(kod)daireSec(kod);else{aktifDaire=null;panelBos()}
+  if(location.hash!=='#kat-'+KATLAR[ki].kisa)history.replaceState(null,'','#kat-'+KATLAR[ki].kisa+(kod?'-'+daire(ki,kod).no:''));
+}
+function binaya(){
+  document.getElementById('planV').classList.remove('on');
+  document.getElementById('binaV').style.display='';
+  history.replaceState(null,'',location.pathname+location.search);
+  window.dispatchEvent(new Event('resize'));
+}
+function panelBos(){
+  panel.innerHTML='<div class="ust">'+KATLAR[aktifKat].ad+'</div><h3>Bir daire seçin</h3>'+
+    '<p class="bos">Plan üzerinde bir daireye tıklayın; alanı, odaları, fiyatı ve satış durumu burada görünür.</p>'+
+    '<div class="lejant" style="margin-top:22px"><span><span class="kare"><i></i></span>Satışta</span><span><span class="kare"><i class="rez"></i></span>Opsiyonlu</span><span><span class="kare"><i class="sold"></i></span>Satıldı</span></div>';
+}
+function daireSec(kod,kaydir){
+  aktifDaire=kod;
+  Array.prototype.forEach.call(svg.querySelectorAll('.u'),function(p){p.classList.toggle('sec',p.getAttribute('data-kod')===kod)});
+  var d=daire(aktifKat,kod),t=d.tip,ds=DURUM[d.durum],plan=P[KATLAR[aktifKat].plan];
+  var od=odalari(plan,kod), balkon=od.filter(function(r){return /Balkon/.test(r.ad)}).reduce(function(a,r){return a+r.alan},0);
+  var fiyatHtml=d.fiyat==null?'<b class="yok">Fiyat için iletişime geçin</b>':'<b class="'+(d.durum==='satildi'?'cizik':'')+'">'+tl(d.fiyat)+'</b>';
+  var msg=V.proje.ad+' — Daire '+d.no+' ('+d.kat.ad+', '+t.oda+', '+t.brut+' m²) hakkında bilgi almak istiyorum.';
+  panel.innerHTML=
+    '<button class="geri" id="tumKat">← Kat planı</button>'+
+    '<div class="ust" style="margin-top:14px">'+d.kat.ad+(KATLAR[aktifKat].noKat!=null?' · çatı katı (dubleks üst kat)':'')+' · otopark üzerine 4 kat</div>'+
+    '<h3>Daire '+d.no+'</h3><div class="tip">'+t.oda+' · '+t.konum+'</div>'+
+    '<div class="fiyat">'+fiyatHtml+'<span class="durum '+ds[0]+'">'+ds[1]+'</span></div>'+
+    '<div class="ozet"><div><small>Brüt alan</small><b>'+t.brut+' m²</b></div><div><small>Emsale esas alan</small><b>'+t.emsal+' m²</b></div>'+
+    '<div><small>Oda</small><b>'+t.oda+'</b></div><div><small>Balkon</small><b>'+(balkon?balkon.toFixed(2).replace('.',',')+' m²':'—')+'</b></div></div>'+
+    '<ul class="odalar">'+od.map(function(r){return '<li><span>'+r.ad+'</span><b>'+r.alan.toFixed(2).replace('.',',')+' m²</b></li>'}).join('')+'</ul>'+
+    (d.durum==='satildi'
+      ?'<a class="btn ana" href="'+waLink(V.proje.ad+' — Daire '+d.no+' satılmış; benzer bir daire var mı?')+'" target="_blank" rel="noopener">Benzer daireleri sor</a>'
+      :'<a class="btn wa" href="'+waLink(msg)+'" target="_blank" rel="noopener">WhatsApp ile sor</a>')+
+    '<a class="btn ana" style="background:#8a6f47" href="satilik/tur/index.html" target="_blank" rel="noopener">'+(d.kod==='GB'?'Bu daireyi 360° gez':'Konsept daireyi 360° gez (2+1, 108 m²)')+'</a>'+
+    '<button class="btn ik" id="planIndir">Kat planını indir</button>'+
+    '<p class="dip">Alanlar mimari ön projeden alınmıştır; uygulama projesinde küçük değişiklikler olabilir. '+(V.ornekVeri?'Fiyat ve satış durumu örnektir.':'')+'</p>';
+  document.getElementById('tumKat').onclick=function(){aktifDaire=null;Array.prototype.forEach.call(svg.querySelectorAll('.u'),function(p){p.classList.remove('sec')});panelBos()};
+  document.getElementById('planIndir').onclick=indir;
+  history.replaceState(null,'','#kat-'+KATLAR[aktifKat].kisa+'-'+d.no);
+  if(kaydir&&window.innerWidth<=860)panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function indir(){var a=document.createElement('a');a.href='satilik/plan_'+KATLAR[aktifKat].plan+'.jpg';a.download=V.proje.dosyaAdi+'-'+KATLAR[aktifKat].kisa+'-kat-plani.jpg';document.body.appendChild(a);a.click();a.remove()}
+document.getElementById('geri').onclick=binaya;
+document.getElementById('katAsagi').onclick=function(){if(aktifKat>0)planAc(aktifKat-1)};
+document.getElementById('katYukari').onclick=function(){if(aktifKat<KATLAR.length-1)planAc(aktifKat+1)};
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&aktifKat>=0&&document.getElementById('planV').classList.contains('on'))binaya()});
+// paylaşılan bağlantı: #kat-1-9 gibi
+(function(){var m=location.hash.match(/^#kat-([^-]+)(?:-(\d+))?$/);if(!m)return;
+  var ki=KATLAR.findIndex(function(k){return k.kisa===decodeURIComponent(m[1])});if(ki<0)return;
+  var kod=null;if(m[2]){var kk=(KATLAR[ki].noKat!=null?KATLAR[ki].noKat:ki),ui=+m[2]-1-kk*6;if(ui>=0&&ui<6&&sira(ki).indexOf(V.sira[ui])>=0)kod=V.sira[ui]}planAc(ki,kod)})();
+})();
+</script>
+</body>
+</html>
