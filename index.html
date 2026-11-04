@@ -675,7 +675,7 @@ function daireSec(kod,kaydir){
       var T={GB:['satilik/tur/index.html',6],GD:['satilik/tur_d4/index.html',4],GO:['satilik/tur_d5/index.html',5]}[d.kod];
       if(!T||KATLAR[aktifKat].noKat!=null)return '<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Bu daire tipinin 360° gezintisi hazırlanıyor.</div>';
       return '<a class="btn ana" style="background:#8a6f47" href="'+T[0]+'" target="_blank" rel="noopener">'+(d.no===T[1]?'Bu daireyi 360° gez':'Bu daire tipini 360° gez')+'</a>'+
-        (d.no===T[1]?'':'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Gezinti aynı plandaki '+T[1]+' no’lu daireden (bahçe katı); bu dairede bahçe yerine balkon/manzara farklıdır.</div>');
+        (d.no===T[1]?'':'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Gezinti aynı plandaki '+T[1]+' no’lu örnek daireden (bahçe katı); iç düzen aynı, manzara ve dış alan (bahçe/balkon) kata göre farklıdır.</div>');
     })()+
     '<button class="btn ik" id="planIndir">Kat planını indir</button>'+
     '<p class="dip">Alanlar mimari ön projeden alınmıştır; uygulama projesinde küçük değişiklikler olabilir. '+(V.ornekVeri?'Fiyat ve satış durumu örnektir.':'')+'</p>';
