@@ -671,7 +671,7 @@ function daireSec(kod,kaydir){
     (d.durum==='satildi'
       ?'<a class="btn ana" href="'+waLink(V.proje.ad+' — Daire '+d.no+' satılmış; benzer bir daire var mı?')+'" target="_blank" rel="noopener">Benzer daireleri sor</a>'
       :'<a class="btn wa" href="'+waLink(msg)+'" target="_blank" rel="noopener">WhatsApp ile sor</a>')+
-    '<a class="btn ana" style="background:#8a6f47" href="satilik/tur/index.html" target="_blank" rel="noopener">'+(d.kod==='GB'?'Bu daireyi 360° gez':'Konsept daireyi 360° gez (2+1, 108 m²)')+'</a>'+
+    '<a class="btn ana" style="background:#8a6f47" href="satilik/tur/index.html" target="_blank" rel="noopener">'+(d.no===6?'Bu daireyi 360° gez':'Konsept daireyi 360° gez (Daire 6 · bahçe katı, 2+1, 108 m²)')+'</a>'+
     '<button class="btn ik" id="planIndir">Kat planını indir</button>'+
     '<p class="dip">Alanlar mimari ön projeden alınmıştır; uygulama projesinde küçük değişiklikler olabilir. '+(V.ornekVeri?'Fiyat ve satış durumu örnektir.':'')+'</p>';
   document.getElementById('tumKat').onclick=function(){aktifDaire=null;Array.prototype.forEach.call(svg.querySelectorAll('.u'),function(p){p.classList.remove('sec')});panelBos()};
