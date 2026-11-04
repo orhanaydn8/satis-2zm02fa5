@@ -671,8 +671,12 @@ function daireSec(kod,kaydir){
     (d.durum==='satildi'
       ?'<a class="btn ana" href="'+waLink(V.proje.ad+' — Daire '+d.no+' satılmış; benzer bir daire var mı?')+'" target="_blank" rel="noopener">Benzer daireleri sor</a>'
       :'<a class="btn wa" href="'+waLink(msg)+'" target="_blank" rel="noopener">WhatsApp ile sor</a>')+
-    (d.no===6?'<a class="btn ana" style="background:#8a6f47" href="satilik/tur/index.html" target="_blank" rel="noopener">Bu daireyi 360° gez</a>'
-             :'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">360° gezinti şimdilik 6 no’lu daire (bahçe katı) için hazır; bu daire için hazırlanıyor.</div>')+
+    (function(){ /* 05.11: her plan tipinin bir örnek dairesi gezilebilir (bahçe katı); aynı tipteki diğer katlar o tura bağlanır */
+      var T={GB:['satilik/tur/index.html',6],GD:['satilik/tur_d4/index.html',4],GO:['satilik/tur_d5/index.html',5]}[d.kod];
+      if(!T||KATLAR[aktifKat].noKat!=null)return '<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Bu daire tipinin 360° gezintisi hazırlanıyor.</div>';
+      return '<a class="btn ana" style="background:#8a6f47" href="'+T[0]+'" target="_blank" rel="noopener">'+(d.no===T[1]?'Bu daireyi 360° gez':'Bu daire tipini 360° gez')+'</a>'+
+        (d.no===T[1]?'':'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Gezinti aynı plandaki '+T[1]+' no’lu daireden (bahçe katı); bu dairede bahçe yerine balkon/manzara farklıdır.</div>');
+    })()+
     '<button class="btn ik" id="planIndir">Kat planını indir</button>'+
     '<p class="dip">Alanlar mimari ön projeden alınmıştır; uygulama projesinde küçük değişiklikler olabilir. '+(V.ornekVeri?'Fiyat ve satış durumu örnektir.':'')+'</p>';
   document.getElementById('tumKat').onclick=function(){aktifDaire=null;Array.prototype.forEach.call(svg.querySelectorAll('.u'),function(p){p.classList.remove('sec')});panelBos()};
