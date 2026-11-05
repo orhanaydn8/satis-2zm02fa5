@@ -672,10 +672,13 @@ function daireSec(kod,kaydir){
       ?'<a class="btn ana" href="'+waLink(V.proje.ad+' — Daire '+d.no+' satılmış; benzer bir daire var mı?')+'" target="_blank" rel="noopener">Benzer daireleri sor</a>'
       :'<a class="btn wa" href="'+waLink(msg)+'" target="_blank" rel="noopener">WhatsApp ile sor</a>')+
     (function(){ /* 05.11: her plan tipinin bir örnek dairesi gezilebilir (bahçe katı); aynı tipteki diğer katlar o tura bağlanır */
-      var T={GB:['satilik/tur/index.html',6],GD:['satilik/tur_d4/index.html',4],GO:['satilik/tur_d5/index.html',5],KB:['satilik/tur_d1/index.html',1],KO:['satilik/tur_d2/index.html',2],KD:['satilik/tur_d3/index.html',3]}[d.kod];
-      if(!T||KATLAR[aktifKat].noKat!=null||/dubleks/.test(t.oda))return '<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Bu daire tipinin 360° gezintisi hazırlanıyor.</div>';   /* dubleksler (3. kat kuzey) ayrı plan */
+      var dub=KATLAR[aktifKat].noKat!=null||/dubleks/.test(t.oda);   /* 05.11: dubleksler (19–21: 3. kat + çatı katı) kendi turlarına */
+      var T=(dub?{KB:['satilik/tur_d19/index.html',19],KO:['satilik/tur_d20/index.html',20],KD:['satilik/tur_d21/index.html',21]}
+                :{GB:['satilik/tur/index.html',6],GD:['satilik/tur_d4/index.html',4],GO:['satilik/tur_d5/index.html',5],KB:['satilik/tur_d1/index.html',1],KO:['satilik/tur_d2/index.html',2],KD:['satilik/tur_d3/index.html',3]})[d.kod];
+      if(!T)return '<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Bu daire tipinin 360° gezintisi hazırlanıyor.</div>';
       return '<a class="btn ana" style="background:#8a6f47" href="'+T[0]+'" target="_blank" rel="noopener">'+(d.no===T[1]?'Bu daireyi 360° gez':'Bu daire tipini 360° gez')+'</a>'+
-        (d.no===T[1]?'':'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Gezinti aynı plandaki '+T[1]+' no’lu örnek daireden (bahçe katı); iç düzen aynı, manzara ve dış alan (bahçe/balkon) kata göre farklıdır.</div>');
+        (dub?'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Gezinti '+T[1]+' no’lu dubleksin 3. kat bölümünü, iç merdiveni, çatı katı holünü ve terasını birlikte gösterir.</div>'
+            :d.no===T[1]?'':'<div style="font-size:13px;color:#8a8076;margin:6px 0 2px">Gezinti aynı plandaki '+T[1]+' no’lu örnek daireden (bahçe katı); iç düzen aynı, manzara ve dış alan (bahçe/balkon) kata göre farklıdır.</div>');
     })()+
     '<button class="btn ik" id="planIndir">Kat planını indir</button>'+
     '<p class="dip">Alanlar mimari ön projeden alınmıştır; uygulama projesinde küçük değişiklikler olabilir. '+(V.ornekVeri?'Fiyat ve satış durumu örnektir.':'')+'</p>';
